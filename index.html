@@ -1,4 +1,5 @@
-# MayuraaWebsite
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +7,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mayuraa Dance Club</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-  @font-face {
-    font-family: 'Samarkan';
-    src: url('SAMAN___.TTF') format('truetype');
-  }
-</style>
+  <style>
+    @font-face {
+      font-family: 'Samarkan';
+      src: url('SAMAN___.TTF') format('truetype');
+    }
+  </style>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-  --red:    #00A86B;
-  --gold:   #D4AF37;
-  --black:  #0A0A0A;
-  --offblack: #111411;
-  --grey:   #1E2A1E;
-  --light:  #E8F0E8;
-  --white:  #FFFFFF;
-}
+      --green:    #00A86B;
+      --blue:     #1B6CA8;
+      --gold:     #D4AF37;
+      --black:    #0A0A0A;
+      --offblack: #111411;
+      --grey:     #1E2A1E;
+      --light:    #E8F0E8;
+      --white:    #FFFFFF;
+    }
 
     html { scroll-behavior: smooth; }
 
@@ -44,31 +46,31 @@
       align-items: center;
       justify-content: space-between;
       padding: 18px 48px;
-      background: rgba(13,13,13,0.85);
+      background: rgba(10,10,10,0.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(232,25,44,0.25);
+      border-bottom: 1px solid rgba(0,168,107,0.25);
     }
 
     .nav-brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
+      font-family: 'Samarkan', sans-serif;
+      font-size: 1.6rem;
       letter-spacing: 0.12em;
       color: var(--white);
       text-decoration: none;
     }
 
-    .nav-brand span { color: var(--red); }
+    .nav-brand span { color: var(--green); }
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
     .nav-links a {
       color: var(--light);
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -94,11 +96,11 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 60% at 50% 60%, rgba(232,25,44,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(245,166,35,0.08) 0%, transparent 60%);
+        radial-gradient(ellipse 80% 60% at 50% 60%, rgba(0,168,107,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(212,175,55,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(27,108,168,0.08) 0%, transparent 60%);
     }
 
-    /* Diagonal accent lines */
     .hero-bg::after {
       content: '';
       position: absolute;
@@ -108,31 +110,9 @@
           -55deg,
           transparent,
           transparent 120px,
-          rgba(232,25,44,0.04) 120px,
-          rgba(232,25,44,0.04) 121px
+          rgba(0,168,107,0.03) 120px,
+          rgba(0,168,107,0.03) 121px
         );
-    }
-
-    .logo-placeholder {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 2px dashed rgba(245,166,35,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 1;
-      background: rgba(245,166,35,0.05);
-      color: rgba(245,166,35,0.6);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-align: center;
-      padding: 12px;
-      line-height: 1.4;
     }
 
     .hero-title {
@@ -145,7 +125,7 @@
     }
 
     .hero-title .stroke {
-      -webkit-text-stroke: 2px var(--red);
+      -webkit-text-stroke: 2px var(--green);
       color: transparent;
     }
 
@@ -166,10 +146,10 @@
       margin-top: 36px;
       max-width: 560px;
       font-size: 1.05rem;
-      color: rgba(240,237,232,0.7);
+      color: rgba(232,240,232,0.75);
       position: relative;
       z-index: 1;
-      border-left: 3px solid var(--red);
+      border-left: 3px solid var(--green);
       padding-left: 18px;
       text-align: left;
     }
@@ -198,25 +178,22 @@
     }
 
     .btn:hover { transform: translateY(-2px); opacity: 0.9; }
-
-    .btn-primary { background: var(--red); color: var(--white); }
+    .btn-primary { background: var(--green); color: var(--white); }
     .btn-outline {
       background: transparent;
       color: var(--light);
-      border: 1.5px solid rgba(240,237,232,0.35);
+      border: 1.5px solid rgba(232,240,232,0.35);
     }
 
     /* ── SECTION BASE ── */
-    section {
-      padding: 96px 48px;
-    }
+    section { padding: 96px 48px; }
 
     .section-label {
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--red);
+      color: var(--green);
       margin-bottom: 10px;
     }
 
@@ -225,7 +202,7 @@
       font-size: clamp(2.4rem, 5vw, 3.8rem);
       letter-spacing: 0.05em;
       color: var(--white);
-      margin-bottom: 48px;
+      margin-bottom: 8px;
       line-height: 1;
     }
 
@@ -234,17 +211,15 @@
     .divider {
       width: 48px;
       height: 3px;
-      background: var(--red);
-      margin: 16px 0 48px;
+      background: var(--green);
+      margin: 16px 0 40px;
     }
 
-    /* ── PEOPLE ── */
-    #people { background: var(--offblack); }
-
-    .people-tabs {
+    /* ── TABS ── */
+    .main-tabs {
       display: flex;
       gap: 4px;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
       flex-wrap: wrap;
     }
 
@@ -252,7 +227,7 @@
       padding: 9px 22px;
       background: transparent;
       border: 1.5px solid var(--grey);
-      color: rgba(240,237,232,0.55);
+      color: rgba(232,240,232,0.55);
       font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -262,56 +237,15 @@
     }
 
     .tab-btn.active, .tab-btn:hover {
-      background: var(--red);
-      border-color: var(--red);
+      background: var(--green);
+      border-color: var(--green);
       color: var(--white);
     }
-
-    .people-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 24px;
-    }
-
-    .person-card {
-      text-align: center;
-    }
-
-    .person-photo {
-      width: 100%;
-      aspect-ratio: 1;
-      background: var(--grey);
-      border-radius: 4px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(240,237,232,0.2);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .person-name {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--white);
-    }
-
-    .person-role {
-      font-size: 0.75rem;
-      color: var(--gold);
-      margin-top: 3px;
-    }
-
-    /* ── MEDIA SECTIONS (Events, Workshops, Competitions) ── */
-    .media-section { background: var(--black); }
-    .media-section:nth-of-type(even) { background: var(--offblack); }
 
     .year-tabs {
       display: flex;
       gap: 4px;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
       flex-wrap: wrap;
     }
 
@@ -319,7 +253,7 @@
       padding: 7px 18px;
       background: transparent;
       border: 1.5px solid var(--grey);
-      color: rgba(240,237,232,0.5);
+      color: rgba(232,240,232,0.5);
       font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -333,27 +267,127 @@
       color: var(--black);
     }
 
+    /* ── PEOPLE ── */
+    #people { background: var(--offblack); }
+
+    .subsection-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin: 36px 0 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+
+    .subsection-title:first-of-type { margin-top: 0; }
+
+    .people-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+
+    .person-card { text-align: center; }
+
+    .person-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--grey);
+      border-radius: 4px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(232,240,232,0.2);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .person-name {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--white);
+    }
+
+    .person-role {
+      font-size: 0.73rem;
+      color: var(--gold);
+      margin-top: 3px;
+    }
+
+    /* Past coordinators year block */
+    .year-block { margin-bottom: 40px; }
+
+    .year-block-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+
+    /* ── MEDIA SECTIONS ── */
+    .media-section { background: var(--black); }
+    .media-section.alt { background: var(--offblack); }
+
+    .media-subsection { margin-bottom: 48px; }
+
+    .media-subsection-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .photo-video-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 18px;
+    }
+
+    .pv-btn {
+      padding: 6px 16px;
+      background: transparent;
+      border: 1.5px solid var(--grey);
+      color: rgba(232,240,232,0.5);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pv-btn.active, .pv-btn:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+    }
+
     .media-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 18px;
     }
 
     .media-card {
       background: var(--grey);
       border-radius: 4px;
       overflow: hidden;
-      position: relative;
     }
 
     .media-thumb {
       width: 100%;
       aspect-ratio: 16/9;
-      background: #333;
+      background: #1a2a1a;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(240,237,232,0.2);
+      color: rgba(232,240,232,0.2);
       font-size: 0.7rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -363,11 +397,11 @@
     .media-thumb.video::after {
       content: '▶';
       position: absolute;
-      font-size: 2rem;
-      color: rgba(255,255,255,0.7);
-      background: rgba(232,25,44,0.8);
-      width: 52px;
-      height: 52px;
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.85);
+      background: rgba(0,168,107,0.85);
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -375,73 +409,131 @@
       padding-left: 4px;
     }
 
-    .media-info {
-      padding: 14px 16px;
+    .media-info { padding: 12px 14px; }
+    .media-info h4 { font-weight: 600; font-size: 0.88rem; color: var(--white); }
+    .media-info p { font-size: 0.73rem; color: rgba(232,240,232,0.5); margin-top: 3px; }
+
+    /* Participants strip */
+    .participants-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    .media-info h4 {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--white);
+    .participant-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--grey);
+      border-radius: 3px;
+      padding: 6px 12px;
     }
 
-    .media-info p {
-      font-size: 0.75rem;
-      color: rgba(240,237,232,0.5);
-      margin-top: 4px;
+    .participant-chip .chip-photo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #2a3a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      color: rgba(232,240,232,0.3);
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .participant-chip span {
+      font-size: 0.8rem;
+      color: var(--light);
+      font-weight: 500;
+    }
+
+    .participants-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(232,240,232,0.4);
+      margin-bottom: 10px;
     }
 
     /* ── CONTACT ── */
     #contact {
-      background: var(--red);
+      background: var(--offblack);
       text-align: center;
+      border-top: 1px solid rgba(0,168,107,0.2);
     }
 
-    #contact .section-label { color: rgba(255,255,255,0.6); }
+    #contact .section-label { color: var(--green); }
     #contact .section-title { color: var(--white); margin-bottom: 12px; }
-    #contact .section-title span { color: var(--black); }
+    #contact .section-title span { color: var(--gold); }
 
     .contact-sub {
       font-size: 1rem;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 36px;
+      color: rgba(232,240,232,0.65);
+      margin-bottom: 40px;
     }
 
-    .instagram-link {
+    .contact-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: var(--black);
+      background: var(--grey);
       color: var(--white);
       text-decoration: none;
-      padding: 16px 36px;
+      padding: 16px 32px;
       font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      transition: transform 0.15s;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      border: 1.5px solid transparent;
+      transition: transform 0.15s, border-color 0.2s;
     }
 
-    .instagram-link:hover { transform: translateY(-2px); }
+    .contact-btn:hover { transform: translateY(-2px); }
+    .contact-btn.instagram { border-color: rgba(0,168,107,0.4); }
+    .contact-btn.youtube { border-color: rgba(212,175,55,0.3); opacity: 0.55; cursor: default; }
+    .contact-btn.youtube:hover { transform: none; }
 
-    .instagram-link svg { width: 22px; height: 22px; fill: var(--gold); }
+    .contact-btn svg { width: 22px; height: 22px; }
+    .contact-btn.instagram svg { fill: var(--green); }
+    .contact-btn.youtube svg { fill: var(--gold); }
+
+    .coming-soon-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(212,175,55,0.1);
+      padding: 2px 7px;
+      border-radius: 2px;
+      margin-left: 4px;
+    }
 
     /* ── FOOTER ── */
     footer {
       background: var(--black);
       border-top: 1px solid var(--grey);
       text-align: center;
-      padding: 28px 24px;
-      font-size: 0.78rem;
-      color: rgba(240,237,232,0.3);
+      padding: 24px;
+      font-size: 0.76rem;
+      color: rgba(232,240,232,0.3);
       letter-spacing: 0.05em;
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
-      .nav-links { gap: 18px; }
-      .nav-links a { font-size: 0.72rem; }
-      section { padding: 72px 20px; }
+      .nav-links { gap: 16px; }
+      section { padding: 64px 20px; }
     }
 
     @media (max-width: 520px) {
@@ -451,13 +543,10 @@
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
+    .reveal.visible { opacity: 1; transform: none; }
   </style>
 </head>
 <body>
@@ -467,8 +556,8 @@
     <a class="nav-brand" href="#hero">MAYUR<span>AA</span></a>
     <ul class="nav-links">
       <li><a href="#people">People</a></li>
-      <li><a href="#events">Events</a></li>
       <li><a href="#workshops">Workshops</a></li>
+      <li><a href="#events">Events</a></li>
       <li><a href="#competitions">Competitions</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -477,25 +566,23 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
-
-    <img src="logo.jpg" alt="Mayuraa Logo" style="width:300px; height:300px; border-radius:150%; object-fit:cover; margin-bottom:28px; position:relative; z-index:1;">
-
+    <img src="logo.jpg" alt="Mayuraa Logo" style="width:300px;height:300px;border-radius:50%;object-fit:cover;margin-bottom:28px;position:relative;z-index:1;">
     <h1 class="hero-title">
       <span class="filled">MAY</span><span class="stroke">URAA</span>
     </h1>
     <p class="hero-sub">IISERB Dance Club &nbsp;·&nbsp; Where The Flow Never Stops</p>
-
     <p class="hero-intro">
       Welcome to Mayuraa's official website! Explore Mayuraa and dive deep into the world of rhythm and movement.
     </p>
-
     <div class="hero-cta">
       <a href="#events" class="btn btn-primary">See Our Work</a>
       <a href="#contact" class="btn btn-outline">Get in Touch</a>
     </div>
   </section>
 
-  <!-- PEOPLE -->
+  <!-- ══════════════════════════════════════════
+       PEOPLE
+  ══════════════════════════════════════════ -->
   <section id="people">
     <div class="reveal">
       <p class="section-label">The Team</p>
@@ -503,62 +590,88 @@
       <div class="divider"></div>
     </div>
 
-    <div class="people-tabs reveal">
-      <button class="tab-btn active" onclick="showPeople('members', this)">Members</button>
-      <button class="tab-btn" onclick="showPeople('coordinators', this)">Coordinators</button>
-      <button class="tab-btn" onclick="showPeople('alumni', this)">Past Coordinators</button>
+    <!-- Main tabs -->
+    <div class="main-tabs reveal">
+      <button class="tab-btn active" onclick="showPeopleTab('current', this)">Current Team</button>
+      <button class="tab-btn" onclick="showPeopleTab('past', this)">Past Coordinators</button>
+      <button class="tab-btn" onclick="showPeopleTab('faculty', this)">Faculty Advisors</button>
     </div>
 
-    <div id="people-members" class="people-grid reveal">
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
+    <!-- CURRENT TEAM -->
+    <div id="people-current" class="reveal">
+      <!-- Coordinators -->
+      <p class="subsection-title">Coordinators</p>
+      <div class="people-grid">
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Club Coordinator</div></div>
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Club Coordinator</div></div>
+      </div>
+
+      <!-- Dancers -->
+      <p class="subsection-title">Dancers</p>
+      <div class="people-grid">
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Dancer Name</div><div class="person-role">Dancer</div></div>
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Dancer Name</div><div class="person-role">Dancer</div></div>
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Dancer Name</div><div class="person-role">Dancer</div></div>
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Dancer Name</div><div class="person-role">Dancer</div></div>
+      </div>
+
+      <!-- Core Committee -->
+      <p class="subsection-title">Core Committee</p>
+      <div class="people-grid">
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Social Media</div></div>
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Logistics</div></div>
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Design</div></div>
+        <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Outreach</div></div>
+      </div>
     </div>
 
-    <div id="people-coordinators" class="people-grid reveal" style="display:none">
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Club Coordinator</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Club Coordinator</div></div>
+    <!-- PAST COORDINATORS -->
+    <div id="people-past" style="display:none" class="reveal">
+      <div class="year-block">
+        <p class="year-block-title">2024 – 25</p>
+        <div class="people-grid">
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Past Coordinator</div></div>
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Past Coordinator</div></div>
+        </div>
+      </div>
+      <div class="year-block">
+        <p class="year-block-title">2023 – 24</p>
+        <div class="people-grid">
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Past Coordinator</div></div>
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Past Coordinator</div></div>
+        </div>
+      </div>
+      <div class="year-block">
+        <p class="year-block-title">2022 – 23</p>
+        <div class="people-grid">
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Past Coordinator</div></div>
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Past Coordinator</div></div>
+        </div>
+      </div>
     </div>
 
-    <div id="people-alumni" class="people-grid reveal" style="display:none">
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Alumni Name</div><div class="person-role">Past Coordinator · 2022–23</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Alumni Name</div><div class="person-role">Past Coordinator · 2021–22</div></div>
+    <!-- FACULTY ADVISORS -->
+    <div id="people-faculty" style="display:none" class="reveal">
+      <div class="year-block">
+        <p class="year-block-title">Current</p>
+        <div class="people-grid">
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Prof. Name</div><div class="person-role">Faculty Advisor</div></div>
+        </div>
+      </div>
+      <div class="year-block">
+        <p class="year-block-title">Past</p>
+        <div class="people-grid">
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Prof. Name</div><div class="person-role">Faculty Advisor · 2022–23</div></div>
+          <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Prof. Name</div><div class="person-role">Faculty Advisor · 2021–22</div></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- EVENTS -->
-  <section id="events" class="media-section">
-    <div class="reveal">
-      <p class="section-label">Highlights</p>
-      <h2 class="section-title">Our <span>Events</span></h2>
-      <div class="divider"></div>
-    </div>
-
-    <div class="year-tabs reveal" id="events-years">
-      <button class="year-btn active" onclick="showYear('events', '2025', this)">2025</button>
-      <button class="year-btn" onclick="showYear('events', '2024', this)">2024</button>
-      <button class="year-btn" onclick="showYear('events', '2023', this)">2023</button>
-    </div>
-
-    <div id="events-2025" class="media-grid reveal">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>March 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Event Name</h4><p>January 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>February 2025</p></div></div>
-    </div>
-    <div id="events-2024" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>November 2024</p></div></div>
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Event Name</h4><p>August 2024</p></div></div>
-    </div>
-    <div id="events-2023" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>October 2023</p></div></div>
-    </div>
-  </section>
-
-  <!-- WORKSHOPS -->
-  <section id="workshops" class="media-section" style="background: var(--offblack);">
+  <!-- ══════════════════════════════════════════
+       WORKSHOPS
+  ══════════════════════════════════════════ -->
+  <section id="workshops" class="media-section alt">
     <div class="reveal">
       <p class="section-label">Learn & Grow</p>
       <h2 class="section-title">Work<span>shops</span></h2>
@@ -571,22 +684,228 @@
       <button class="year-btn" onclick="showYear('workshops', '2023', this)">2023</button>
     </div>
 
-    <div id="workshops-2025" class="media-grid reveal">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Name</h4><p>April 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Name</h4><p>February 2025</p></div></div>
+    <!-- 2025 -->
+    <div id="workshops-2025" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Workshop 1 — Name</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ws-2025-w1')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ws-2025-w1')">Videos</button>
+        </div>
+        <div class="media-grid" id="ws-2025-w1-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025</p></div></div>
+        </div>
+        <div class="media-grid" id="ws-2025-w1-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Video</h4><p>2025</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Workshop 2 — Name</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ws-2025-w2')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ws-2025-w2')">Videos</button>
+        </div>
+        <div class="media-grid" id="ws-2025-w2-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025</p></div></div>
+        </div>
+        <div class="media-grid" id="ws-2025-w2-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Video</h4><p>2025</p></div></div>
+        </div>
+      </div>
     </div>
-    <div id="workshops-2024" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Name</h4><p>September 2024</p></div></div>
+
+    <!-- 2024 -->
+    <div id="workshops-2024" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Workshop 1 — Name</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ws-2024-w1')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ws-2024-w1')">Videos</button>
+        </div>
+        <div class="media-grid" id="ws-2024-w1-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2024</p></div></div>
+        </div>
+        <div class="media-grid" id="ws-2024-w1-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Video</h4><p>2024</p></div></div>
+        </div>
+      </div>
     </div>
-    <div id="workshops-2023" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Name</h4><p>July 2023</p></div></div>
+
+    <!-- 2023 -->
+    <div id="workshops-2023" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Workshop 1 — Name</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ws-2023-w1')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ws-2023-w1')">Videos</button>
+        </div>
+        <div class="media-grid" id="ws-2023-w1-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2023</p></div></div>
+        </div>
+        <div class="media-grid" id="ws-2023-w1-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Video</h4><p>2023</p></div></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- COMPETITIONS -->
-  <section id="competitions" class="media-section">
+  <!-- ══════════════════════════════════════════
+       EVENTS
+  ══════════════════════════════════════════ -->
+  <section id="events" class="media-section">
     <div class="reveal">
-      <p class="section-label">The Stage</p>
+      <p class="section-label">Highlights</p>
+      <h2 class="section-title">Our <span>Events</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="year-tabs reveal">
+      <button class="year-btn active" onclick="showYear('events', '2025', this)">2025</button>
+      <button class="year-btn" onclick="showYear('events', '2024', this)">2024</button>
+      <button class="year-btn" onclick="showYear('events', '2023', this)">2023</button>
+    </div>
+
+    <!-- 2025 -->
+    <div id="events-2025" class="reveal">
+      <!-- Dance Battle -->
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2025-db')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2025-db')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2025-db-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>2025</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>2025</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2025-db-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Dance Battle</h4><p>2025</p></div></div>
+        </div>
+      </div>
+      <!-- Independence Day -->
+      <div class="media-subsection">
+        <p class="media-subsection-title">Independence Day</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2025-id')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2025-id')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2025-id-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Independence Day</h4><p>August 2025</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2025-id-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Independence Day</h4><p>August 2025</p></div></div>
+        </div>
+      </div>
+      <!-- Republic Day -->
+      <div class="media-subsection">
+        <p class="media-subsection-title">Republic Day</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2025-rd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2025-rd')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2025-rd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Republic Day</h4><p>January 2025</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2025-rd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Republic Day</h4><p>January 2025</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024 -->
+    <div id="events-2024" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2024-db')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2024-db')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2024-db-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>2024</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2024-db-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Dance Battle</h4><p>2024</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Independence Day</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2024-id')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2024-id')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2024-id-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Independence Day</h4><p>August 2024</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2024-id-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Independence Day</h4><p>August 2024</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Republic Day</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2024-rd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2024-rd')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2024-rd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Republic Day</h4><p>January 2024</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2024-rd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Republic Day</h4><p>January 2024</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div id="events-2023" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2023-db')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2023-db')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2023-db-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>2023</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2023-db-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Dance Battle</h4><p>2023</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Independence Day</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2023-id')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2023-id')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2023-id-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Independence Day</h4><p>August 2023</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2023-id-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Independence Day</h4><p>August 2023</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Republic Day</p>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'ev-2023-rd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'ev-2023-rd')">Videos</button>
+        </div>
+        <div class="media-grid" id="ev-2023-rd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Republic Day</h4><p>January 2023</p></div></div>
+        </div>
+        <div class="media-grid" id="ev-2023-rd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Republic Day</h4><p>January 2023</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       COMPETITIONS — IICM
+  ══════════════════════════════════════════ -->
+  <section id="competitions" class="media-section alt">
+    <div class="reveal">
+      <p class="section-label">IICM — Inter-Institute Cultural Meet</p>
       <h2 class="section-title">Competi<span>tions</span></h2>
       <div class="divider"></div>
     </div>
@@ -597,47 +916,273 @@
       <button class="year-btn" onclick="showYear('competitions', '2023', this)">2023</button>
     </div>
 
-    <div id="competitions-2025" class="media-grid reveal">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Competition Name</h4><p>March 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Competition Name</h4><p>January 2025</p></div></div>
+    <!-- 2025 -->
+    <div id="competitions-2025" class="reveal">
+
+      <!-- Dance Battle -->
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2025-db')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2025-db')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2025-db-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>IICM 2025</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>IICM 2025</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2025-db-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Dance Battle</h4><p>IICM 2025</p></div></div>
+        </div>
+      </div>
+
+      <!-- Group Dance -->
+      <div class="media-subsection">
+        <p class="media-subsection-title">Group Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2025-gd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2025-gd')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2025-gd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Group Dance</h4><p>IICM 2025</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2025-gd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Group Dance</h4><p>IICM 2025</p></div></div>
+        </div>
+      </div>
+
+      <!-- Solo Dance -->
+      <div class="media-subsection">
+        <p class="media-subsection-title">Solo Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2025-sd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2025-sd')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2025-sd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Solo Dance</h4><p>IICM 2025</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2025-sd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Solo Dance</h4><p>IICM 2025</p></div></div>
+        </div>
+      </div>
+
+      <!-- Synchro Dance -->
+      <div class="media-subsection">
+        <p class="media-subsection-title">Synchro Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2025-sy')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2025-sy')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2025-sy-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Synchro Dance</h4><p>IICM 2025</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2025-sy-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Synchro Dance</h4><p>IICM 2025</p></div></div>
+        </div>
+      </div>
     </div>
-    <div id="competitions-2024" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Competition Name</h4><p>December 2024</p></div></div>
+
+    <!-- 2024 -->
+    <div id="competitions-2024" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2024-db')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2024-db')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2024-db-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>IICM 2024</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2024-db-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Dance Battle</h4><p>IICM 2024</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Group Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2024-gd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2024-gd')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2024-gd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Group Dance</h4><p>IICM 2024</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2024-gd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Group Dance</h4><p>IICM 2024</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Solo Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2024-sd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2024-sd')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2024-sd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Solo Dance</h4><p>IICM 2024</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2024-sd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Solo Dance</h4><p>IICM 2024</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Synchro Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2024-sy')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2024-sy')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2024-sy-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Synchro Dance</h4><p>IICM 2024</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2024-sy-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Synchro Dance</h4><p>IICM 2024</p></div></div>
+        </div>
+      </div>
     </div>
-    <div id="competitions-2023" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Competition Name</h4><p>October 2023</p></div></div>
+
+    <!-- 2023 -->
+    <div id="competitions-2023" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2023-db')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2023-db')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2023-db-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>IICM 2023</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2023-db-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Dance Battle</h4><p>IICM 2023</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Group Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2023-gd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2023-gd')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2023-gd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Group Dance</h4><p>IICM 2023</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2023-gd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Group Dance</h4><p>IICM 2023</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Solo Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2023-sd')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2023-sd')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2023-sd-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Solo Dance</h4><p>IICM 2023</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2023-sd-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Solo Dance</h4><p>IICM 2023</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Synchro Dance</p>
+        <p class="participants-label">Participants</p>
+        <div class="participants-strip">
+          <div class="participant-chip"><div class="chip-photo">Pic</div><span>Participant Name</span></div>
+        </div>
+        <div class="photo-video-tabs">
+          <button class="pv-btn active" onclick="showPV(this, 'co-2023-sy')">Photos</button>
+          <button class="pv-btn" onclick="showPV(this, 'co-2023-sy')">Videos</button>
+        </div>
+        <div class="media-grid" id="co-2023-sy-photos">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Synchro Dance</h4><p>IICM 2023</p></div></div>
+        </div>
+        <div class="media-grid" id="co-2023-sy-videos" style="display:none">
+          <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Synchro Dance</h4><p>IICM 2023</p></div></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ══════════════════════════════════════════
+       CONTACT
+  ══════════════════════════════════════════ -->
   <section id="contact">
     <div class="reveal">
       <p class="section-label">Say Hello</p>
       <h2 class="section-title">Find Us <span>Online</span></h2>
     </div>
     <p class="contact-sub reveal">Follow us for the latest updates, reels, and behind-the-scenes.</p>
-    <div class="reveal">
-      <a href="https://instagram.com/mayuraa_danceclub" target="_blank" class="instagram-link">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-        </svg>
-        @mayuraa_danceclub
+    <div class="contact-links reveal">
+      <!-- Instagram -->
+      <a href="https://instagram.com/mayuraa_iiserb" target="_blank" class="contact-btn instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @mayuraa_iiserb
       </a>
+      <!-- YouTube (coming soon) -->
+      <span class="contact-btn youtube">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        YouTube <span class="coming-soon-tag">Coming Soon</span>
+      </span>
     </div>
   </section>
 
   <footer>
-    © 2025 Mayuraa Dance Club &nbsp;·&nbsp; All rights reserved
+    © 2025 Mayuraa Dance Club · IISER Bhopal &nbsp;·&nbsp; All rights reserved
   </footer>
 
   <script>
-    // People tabs
-    function showPeople(tab, btn) {
-      ['members','coordinators','alumni'].forEach(t => {
-        document.getElementById('people-' + t).style.display = 'none';
+    // People main tabs
+    function showPeopleTab(tab, btn) {
+      ['current','past','faculty'].forEach(t => {
+        const el = document.getElementById('people-' + t);
+        if (el) el.style.display = 'none';
       });
-      document.getElementById('people-' + tab).style.display = 'grid';
-      document.querySelectorAll('.people-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('people-' + tab).style.display = 'block';
+      document.querySelectorAll('#people .main-tabs .tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
 
@@ -648,8 +1193,19 @@
         if (el) el.style.display = 'none';
       });
       const target = document.getElementById(section + '-' + year);
-      if (target) target.style.display = 'grid';
+      if (target) target.style.display = 'block';
       btn.closest('.year-tabs').querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // Photo / Video toggle
+    function showPV(btn, id) {
+      const isPhotos = btn.textContent.trim() === 'Photos';
+      const photosEl = document.getElementById(id + '-photos');
+      const videosEl = document.getElementById(id + '-videos');
+      if (photosEl) photosEl.style.display = isPhotos ? 'grid' : 'none';
+      if (videosEl) videosEl.style.display = isPhotos ? 'none' : 'grid';
+      btn.closest('.photo-video-tabs').querySelectorAll('.pv-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
 
@@ -661,9 +1217,10 @@
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
+
