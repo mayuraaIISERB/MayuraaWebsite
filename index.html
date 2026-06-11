@@ -14,6 +14,25 @@
     }
   </style>
   <style>
+    
+    .toggle-photos-btn {
+  margin-left: 14px;
+  padding: 4px 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1.5px solid var(--gold);
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 0.2s;
+  vertical-align: middle;
+}
+.toggle-photos-btn:hover {
+  background: var(--gold);
+  color: var(--black);
+}
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -686,7 +705,9 @@
 
     <div id="workshops-2526" class="reveal">
       <div class="media-subsection">
-        <p class="media-subsection-title">Workshop 1 — Name</p>
+        <p class="media-subsection-title">Workshop 1 — Name
+        <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
         <div class="media-grid">
           <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
           <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
@@ -984,6 +1005,13 @@
       document.querySelectorAll('#people .main-tabs .tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
+
+    function togglePhotos(btn) {
+  const grid = btn.closest('.media-subsection').querySelector('.collapsible-photos');
+  const isHidden = grid.style.display === 'none';
+  grid.style.display = isHidden ? 'grid' : 'none';
+  btn.textContent = isHidden ? 'Hide Photos' : 'Show Photos';
+}
 
     // Year tabs
    function showYear(section, year, btn) {
