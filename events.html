@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What We Do — Mayuraa Dance Club</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    @font-face {
+      font-family: 'Samarkan';
+      src: url('SAMAN___.TTF') format('truetype');
+    }
+  </style>
+  <style>
+    :root {
+      --green:    #00A86B;
+      --blue:     #1B6CA8;
+      --gold:     #D4AF37;
+      --black:    #0A0A0A;
+      --offblack: #111411;
+      --grey:     #1E2A1E;
+      --light:    #E8F0E8;
+      --white:    #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--light);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,168,107,0.25);
+    }
+
+    .nav-brand {
+      font-family: 'Samarkan', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.active { color: var(--gold); }
+
+    /* ── SECTION BASE ── */
+    section { padding: 96px 48px; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .section-title span { color: var(--gold); }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--green);
+      margin: 16px 0 40px;
+    }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      min-height: 38vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px 24px 60px;
+      position: relative;
+      overflow: hidden;
+      background: var(--offblack);
+    }
+
+    .page-header-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(0,168,107,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(27,108,168,0.06) 0%, transparent 60%);
+    }
+
+    .page-header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      letter-spacing: 0.06em;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header h1 span { color: var(--gold); }
+
+    .page-header p {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--green);
+      position: relative;
+      z-index: 1;
+      margin-top: 12px;
+    }
+
+    /* ── YEAR & PHOTO TABS ── */
+    .year-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .year-btn {
+      padding: 7px 18px;
+      background: transparent;
+      border: 1.5px solid var(--grey);
+      color: rgba(232,240,232,0.5);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .year-btn.active, .year-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── MEDIA ── */
+    .media-section { background: var(--black); }
+    .media-section.alt { background: var(--offblack); }
+
+    .media-subsection { margin-bottom: 48px; }
+
+    .media-subsection-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.08em;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .media-card {
+      background: var(--grey);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .media-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #1a2a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(232,240,232,0.2);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .media-info { padding: 12px 14px; }
+    .media-info h4 { font-weight: 600; font-size: 0.88rem; color: var(--white); }
+    .media-info p { font-size: 0.73rem; color: rgba(232,240,232,0.5); margin-top: 3px; }
+
+    .toggle-photos-btn {
+      margin-left: 14px;
+      padding: 4px 14px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      cursor: pointer;
+      transition: all 0.2s;
+      vertical-align: middle;
+    }
+
+    .toggle-photos-btn:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--grey);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.76rem;
+      color: rgba(232,240,232,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 16px; }
+      section { padding: 64px 20px; }
+      .page-header { padding: 120px 20px 48px; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links { display: none; }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="index.html">MAYUR<span>AA</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="events.html" class="active">What We Do</a></li>
+      <li><a href="competitions.html">IICM</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg"></div>
+    <h1>What We <span>Do</span></h1>
+    <p>Workshops &amp; Events · Mayuraa</p>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       WORKSHOPS
+  ══════════════════════════════════════════ -->
+  <section id="workshops" class="media-section alt">
+    <div class="reveal">
+      <p class="section-label">Learn &amp; Grow</p>
+      <h2 class="section-title">Work<span>shops</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="year-tabs reveal">
+      <button class="year-btn active" onclick="showYear('workshops', '2526', this)">2025–26</button>
+      <button class="year-btn" onclick="showYear('workshops', '2425', this)">2024–25</button>
+    </div>
+
+    <!-- 2025-26 -->
+    <div id="workshops-2526" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Lezim <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Bollywood <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Classical <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Salsa <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">HipHop <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024-25 -->
+    <div id="workshops-2425" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">House <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Salsa <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Rhythms Of South <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Kathak <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Lezim <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Photo</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       EVENTS
+  ══════════════════════════════════════════ -->
+  <section id="events" class="media-section">
+    <div class="reveal">
+      <p class="section-label">Highlights</p>
+      <h2 class="section-title">Our <span>Events</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="year-tabs reveal">
+      <button class="year-btn active" onclick="showYear('events', 'ev2526', this)">2025–26</button>
+      <button class="year-btn" onclick="showYear('events', 'ev2425', this)">2024–25</button>
+      <button class="year-btn" onclick="showYear('events', 'ev2324', this)">2023–24</button>
+    </div>
+
+    <!-- 2025-26 -->
+    <div id="events-ev2526" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Independence Day '25 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Independence Day</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Republic Day '26 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Republic Day</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle 3.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>2025–26</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2024-25 -->
+    <div id="events-ev2425" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Independence Day '24 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Independence Day</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Republic Day '25 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Republic Day</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Mahua — Flashmob <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Mahua — Flashmob</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle 2.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Lumos 2.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Lumos</h4><p>2024–25</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023-24 -->
+    <div id="events-ev2324" style="display:none" class="reveal">
+      <div class="media-subsection">
+        <p class="media-subsection-title">Independence Day '23 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Independence Day</h4><p>2023–24</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Republic Day '24 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Republic Day</h4><p>2023–24</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Dance Battle 1.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Dance Battle</h4><p>2023–24</p></div></div>
+        </div>
+      </div>
+      <div class="media-subsection">
+        <p class="media-subsection-title">Lumos 1.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
+        <div class="media-grid collapsible-photos" style="display:none">
+          <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Lumos</h4><p>2023–24</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Mayuraa Dance Club · IISER Bhopal &nbsp;·&nbsp; All rights reserved
+  </footer>
+
+  <script>
+    function togglePhotos(btn) {
+      const grid = btn.closest('.media-subsection').querySelector('.collapsible-photos');
+      const isHidden = grid.style.display === 'none';
+      grid.style.display = isHidden ? 'grid' : 'none';
+      btn.textContent = isHidden ? 'Hide Photos' : 'Show Photos';
+    }
+
+    function showYear(section, year, btn) {
+      ['2526','2425','2324','ev2526','ev2425','ev2324'].forEach(y => {
+        const el = document.getElementById(section + '-' + y);
+        if (el) el.style.display = 'none';
+      });
+      const target = document.getElementById(section + '-' + year);
+      if (target) target.style.display = 'block';
+      btn.closest('.year-tabs').querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

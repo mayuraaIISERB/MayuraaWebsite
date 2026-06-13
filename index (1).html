@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mayuraa Dance Club — IISER Bhopal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    @font-face {
+      font-family: 'Samarkan';
+      src: url('SAMAN___.TTF') format('truetype');
+    }
+  </style>
+  <style>
+    :root {
+      --green:    #00A86B;
+      --blue:     #1B6CA8;
+      --gold:     #D4AF37;
+      --black:    #0A0A0A;
+      --offblack: #111411;
+      --grey:     #1E2A1E;
+      --light:    #E8F0E8;
+      --white:    #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--light);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,168,107,0.25);
+    }
+
+    .nav-brand {
+      font-family: 'Samarkan', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-brand span { color: var(--green); }
+
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a.active { color: var(--gold); }
+
+    section { padding: 96px 48px; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .section-title span { color: var(--gold); }
+
+    .divider {
+      width: 48px;
+      height: 3px;
+      background: var(--green);
+      margin: 16px 0 40px;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 60%, rgba(0,168,107,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(212,175,55,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(27,108,168,0.08) 0%, transparent 60%);
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(-55deg, transparent, transparent 120px, rgba(0,168,107,0.03) 120px, rgba(0,168,107,0.03) 121px);
+    }
+
+    .hero-title {
+      font-family: 'Samarkan', sans-serif;
+      font-size: clamp(2.5rem, 7.5vw, 6rem);
+      letter-spacing: 0.06em;
+      line-height: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title .stroke { -webkit-text-stroke: 2px var(--green); color: transparent; }
+    .hero-title .filled { color: var(--white); }
+
+    .hero-sub {
+      margin-top: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-intro {
+      margin-top: 36px;
+      max-width: 560px;
+      font-size: 1.05rem;
+      color: rgba(232,240,232,0.75);
+      position: relative;
+      z-index: 1;
+      border-left: 3px solid var(--green);
+      padding-left: 18px;
+      text-align: left;
+    }
+
+    .hero-cta {
+      margin-top: 44px;
+      display: flex;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 34px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-outline { background: transparent; color: var(--light); border: 1.5px solid rgba(232,240,232,0.35); }
+
+    /* CAROUSEL */
+    #gallery { background: var(--offblack); padding: 96px 0; }
+
+    .gallery-header { padding: 0 48px; margin-bottom: 40px; }
+
+    .carousel-wrapper { position: relative; overflow: hidden; width: 100%; }
+
+    .carousel-track {
+      display: flex;
+      gap: 16px;
+      padding: 0 48px;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-slide {
+      min-width: 340px;
+      aspect-ratio: 4/3;
+      background: var(--grey);
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .slide-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(232,240,232,0.15);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      gap: 8px;
+    }
+
+    .slide-placeholder svg { width: 32px; height: 32px; opacity: 0.15; fill: var(--light); }
+
+    .carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 28px;
+      padding: 0 48px;
+    }
+
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1.5px solid rgba(232,240,232,0.25);
+      color: var(--light);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .carousel-btn:hover { background: var(--green); border-color: var(--green); }
+
+    .carousel-dots { display: flex; gap: 8px; }
+
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(232,240,232,0.2);
+      cursor: pointer;
+      transition: background 0.2s;
+      border: none;
+    }
+
+    .carousel-dot.active { background: var(--gold); }
+
+    /* ANNOUNCEMENTS */
+    #announcements { background: var(--black); }
+
+    .announcement-card {
+      border-left: 3px solid var(--green);
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      background: var(--grey);
+      border-radius: 0 4px 4px 0;
+    }
+
+    .announcement-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 3px 10px;
+      border-radius: 2px;
+    }
+
+    .announcement-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin: 10px 0 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .announcement-body { font-size: 0.9rem; color: rgba(232,240,232,0.7); margin-bottom: 10px; }
+    .announcement-date { font-size: 0.75rem; color: var(--green); font-weight: 600; letter-spacing: 0.08em; }
+
+    .announcement-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+
+    .announcement-link {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-decoration: none;
+      border: 1.5px solid rgba(212,175,55,0.4);
+      padding: 5px 14px;
+      transition: all 0.2s;
+    }
+
+    .announcement-link:hover { background: var(--gold); color: var(--black); }
+
+    /* ACHIEVEMENTS */
+    #achievements { background: var(--offblack); }
+
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .achievement-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border-radius: 4px;
+      border-left: 4px solid;
+      background: var(--grey);
+    }
+
+    .achievement-card.gold { border-color: #FFD700; }
+    .achievement-card.silver { border-color: #C0C0C0; }
+    .achievement-card.bronze { border-color: #CD7F32; }
+
+    .achievement-position {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      line-height: 1;
+      min-width: 52px;
+      text-align: center;
+    }
+
+    .achievement-card.gold .achievement-position { color: #FFD700; }
+    .achievement-card.silver .achievement-position { color: #C0C0C0; }
+    .achievement-card.bronze .achievement-position { color: #CD7F32; }
+
+    .achievement-details { flex: 1; }
+    .achievement-details h4 { font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 4px; }
+    .achievement-details p { font-size: 0.78rem; color: rgba(232,240,232,0.55); }
+    .achievement-medal { font-size: 1.8rem; }
+
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--grey);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.76rem;
+      color: rgba(232,240,232,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 16px; }
+      section { padding: 64px 20px; }
+      .gallery-header { padding: 0 20px; }
+      .carousel-track { padding: 0 20px; }
+      .carousel-slide { min-width: 280px; }
+      .carousel-controls { padding: 0 20px; }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links { display: none; }
+      .carousel-slide { min-width: 240px; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-brand" href="index.html">MAYUR<span>AA</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="events.html">What We Do</a></li>
+      <li><a href="competitions.html">IICM</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <img src="logo.jpg" alt="Mayuraa Logo" style="width:300px;height:300px;border-radius:50%;object-fit:cover;margin-bottom:28px;position:relative;z-index:1;">
+    <h1 class="hero-title">
+      <span class="filled">MAY</span><span class="stroke">URAA</span>
+    </h1>
+    <p class="hero-sub">IISERB Dance Club &nbsp;·&nbsp; Where The Flow Never Stops</p>
+    <p class="hero-intro">Welcome to Mayuraa's official website! Explore Mayuraa and dive deep into the world of rhythm and movement.</p>
+    <div class="hero-cta">
+      <a href="events.html" class="btn btn-primary">See Our Work</a>
+      <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- GALLERY CAROUSEL -->
+  <section id="gallery">
+    <div class="gallery-header reveal">
+      <p class="section-label">Moments</p>
+      <h2 class="section-title">Quick <span>Glance at Us</span></h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 1</div></div>
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 2</div></div>
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 3</div></div>
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 4</div></div>
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 5</div></div>
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 6</div></div>
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 7</div></div>
+        <div class="carousel-slide"><div class="slide-placeholder"><svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>Photo 8</div></div>
+      </div>
+    </div>
+
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="moveCarousel(-1)">&#8592;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
+      <button class="carousel-btn" onclick="moveCarousel(1)">&#8594;</button>
+    </div>
+  </section>
+
+  <!-- ANNOUNCEMENTS -->
+  <section id="announcements">
+    <div class="reveal">
+      <p class="section-label">Latest Updates</p>
+      <h2 class="section-title">Announce<span>ments</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="reveal">
+      <div class="announcement-card">
+        <span class="announcement-tag">Auditions</span>
+        <h3 class="announcement-title">Announcement Title Here</h3>
+        <p class="announcement-body">Details about the announcement go here — dates, venue, who can participate, etc.</p>
+        <div class="announcement-links">
+          <a href="#" class="announcement-link">Registration Form</a>
+          <a href="#" class="announcement-link">More Details</a>
+        </div>
+        <p class="announcement-date">June 2025</p>
+      </div>
+      <div class="announcement-card">
+        <span class="announcement-tag">Winner</span>
+        <h3 class="announcement-title">Announcement Title Here</h3>
+        <p class="announcement-body">Details go here.</p>
+        <div class="announcement-links">
+          <a href="#" class="announcement-link">More Details</a>
+        </div>
+        <p class="announcement-date">May 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="reveal">
+      <p class="section-label">Pride of Mayuraa</p>
+      <h2 class="section-title">Achieve<span>ments</span></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="achievements-grid reveal">
+      <div class="achievement-card gold">
+        <div class="achievement-position">1st</div>
+        <div class="achievement-details"><h4>Group Dance</h4><p>IICM 2024 &nbsp;·&nbsp; IISER Bhopal</p></div>
+        <div class="achievement-medal">🥇</div>
+      </div>
+      <div class="achievement-card silver">
+        <div class="achievement-position">2nd</div>
+        <div class="achievement-details"><h4>Synchro Dance</h4><p>IICM 2024 &nbsp;·&nbsp; IISER Bhopal</p></div>
+        <div class="achievement-medal">🥈</div>
+      </div>
+      <div class="achievement-card bronze">
+        <div class="achievement-position">3rd</div>
+        <div class="achievement-details"><h4>Solo Dance</h4><p>IICM 2023 &nbsp;·&nbsp; IISER Bhopal</p></div>
+        <div class="achievement-medal">🥉</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Mayuraa Dance Club · IISER Bhopal &nbsp;·&nbsp; All rights reserved
+  </footer>
+
+  <script>
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    let current = 0;
+    let autoTimer;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => { goTo(i); resetTimer(); };
+      dotsContainer.appendChild(dot);
+    });
+
+    function getSlideWidth() {
+      return slides[0].offsetWidth + 16;
+    }
+
+    function goTo(index) {
+      current = (index + totalSlides) % totalSlides;
+      track.style.transform = 'translateX(-' + (current * getSlideWidth()) + 'px)';
+      document.querySelectorAll('.carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function moveCarousel(dir) {
+      goTo(current + dir);
+      resetTimer();
+    }
+
+    function resetTimer() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => goTo(current + 1), 3500);
+    }
+
+    autoTimer = setInterval(() => goTo(current + 1), 3500);
+
+    track.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    track.addEventListener('mouseleave', resetTimer);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
