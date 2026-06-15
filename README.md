@@ -1,669 +1,135 @@
-# MayuraaWebsite
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mayuraa Dance Club</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<style>
-  @font-face {
-    font-family: 'Samarkan';
-    src: url('SAMAN___.TTF') format('truetype');
-  }
-</style>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+# Mayuraa Dance Club — Website Guide
+
+## File Structure
+| File | Purpose |
+|---|---|
+| `index.html` | Home page — carousel, announcements, achievements |
+| `people.html` | Team members, past coordinators, faculty advisors, Spotify playlist |
+| `events.html` | Workshops and events (tenure-wise) |
+| `competitions.html` | IICM competitions (year-wise) |
+| `contact.html` | Instagram and YouTube links |
+| `logo.jpg` | Club logo |
+| `SAMAN___.TTF` | Samarkan font file — do NOT delete |
+
+---
+
+## How to Update the Website
+
+1. Download the file you want to edit from this repository (e.g. `index.html`)
+2. Open Claude at claude.ai
+3. Upload the file and describe what you want changed
+4. Download the updated file Claude gives you
+5. Upload it back to this repository (same filename)
+6. GitHub Pages updates automatically within 1–2 minutes
+
+---
+
+## How to Add Photos
+
+All photos are hosted on Google Drive — nothing heavy is uploaded to GitHub.
+
+### Step 1 — Upload photo to Google Drive
+- Upload your photo to the shared **Mayuraa Website Media** folder on Google Drive
+- Organise it in the right subfolder (e.g. Events → 2025–26 → Independence Day)
+
+### Step 2 — Make the photo accessible
+- Right click the photo in Google Drive
+- Click **Share → Anyone with link can view**
+- Click **Copy link**
+
+The link will look like:
+```
+https://drive.google.com/file/d/1aBcDeFgHiJkLmNoPqRsTuVwXyZ/view
+```
+
+### Step 3 — Get the File ID
+Copy only the part between `/d/` and `/view`:
+```
+1aBcDeFgHiJkLmNoPqRsTuVwXyZ
+```
+This is your **File ID**.
+
+### Step 4 — Add the photo to the website code
+
+Use this format wherever you want the photo to appear:
+```html
+<img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800">
+```
+Replace `YOUR_FILE_ID` with the actual ID from Step 3.
+
+---
+
+## Where to Add Photos — By Section
+
+### Carousel (Home page)
+Find a slide placeholder like this:
+```html
+<div class="carousel-slide"><div class="slide-placeholder">...Photo 1...</div></div>
+```
+Replace with:
+```html
+<div class="carousel-slide"><img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800"></div>
+```
+
+### Events / Workshops / Competitions
+Find a media thumb placeholder like this:
+```html
+<div class="media-thumb">Photo</div>
+```
+Replace with:
+```html
+<img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;">
+```
+
+### People Section
+Find a person photo placeholder like this:
+```html
+<div class="person-photo">Photo</div>
+```
+Replace with:
+```html
+<img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w400" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;">
+```
+
+> Use `sz=w400` for people photos (smaller) and `sz=w800` for event/carousel photos (larger) for faster loading.
+
+---
+
+## Colour Scheme
+| Colour | Hex Code |
+|---|---|
+| Green (primary) | `#00A86B` |
+| Gold (accent) | `#D4AF37` |
+| Blue (section titles) | `#1B6CA8` |
+| Black (background) | `#0A0A0A` |
 
-    :root {
-  --red:    #00A86B;
-  --gold:   #D4AF37;
-  --black:  #0A0A0A;
-  --offblack: #111411;
-  --grey:   #1E2A1E;
-  --light:  #E8F0E8;
-  --white:  #FFFFFF;
-}
+---
 
-    html { scroll-behavior: smooth; }
+## Social Links
+- **Instagram:** [@mayuraa_iiserb](https://instagram.com/mayuraa_iiserb)
+- **YouTube:** Coming soon
 
-    body {
-      background: var(--black);
-      color: var(--light);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-    }
+---
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 48px;
-      background: rgba(13,13,13,0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(232,25,44,0.25);
-    }
+## How to Temporarily Disable the Website
+1. Go to repository **Settings → Pages**
+2. Click **Unpublish site**
+3. To bring it back, go to Settings → Pages → Deploy from branch → main → Save
 
-    .nav-brand {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
-      letter-spacing: 0.12em;
-      color: var(--white);
-      text-decoration: none;
-    }
+---
 
-    .nav-brand span { color: var(--red); }
+## How to Add a New Tenure / Year
+For each section (workshops, events, competitions):
+1. Add a new year button in the `year-tabs` div
+2. Add a new content div with the matching ID
+3. Add the new ID to the `showYear` function in the script
 
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
+Ask Claude for help with this if needed — just share the relevant HTML file.
 
-    .nav-links a {
-      color: var(--light);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
+---
 
-    .nav-links a:hover { color: var(--gold); }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 60%, rgba(232,25,44,0.12) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(245,166,35,0.08) 0%, transparent 60%);
-    }
-
-    /* Diagonal accent lines */
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(
-          -55deg,
-          transparent,
-          transparent 120px,
-          rgba(232,25,44,0.04) 120px,
-          rgba(232,25,44,0.04) 121px
-        );
-    }
-
-    .logo-placeholder {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      border: 2px dashed rgba(245,166,35,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 28px;
-      position: relative;
-      z-index: 1;
-      background: rgba(245,166,35,0.05);
-      color: rgba(245,166,35,0.6);
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-align: center;
-      padding: 12px;
-      line-height: 1.4;
-    }
-
-    .hero-title {
-      font-family: 'Samarkan', sans-serif;
-      font-size: clamp(7rem, 20vw, 14rem);
-      letter-spacing: 0.06em;
-      line-height: 0.9;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-title .stroke {
-      -webkit-text-stroke: 2px var(--red);
-      color: transparent;
-    }
-
-    .hero-title .filled { color: var(--white); }
-
-    .hero-sub {
-      margin-top: 18px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-intro {
-      margin-top: 36px;
-      max-width: 560px;
-      font-size: 1.05rem;
-      color: rgba(240,237,232,0.7);
-      position: relative;
-      z-index: 1;
-      border-left: 3px solid var(--red);
-      padding-left: 18px;
-      text-align: left;
-    }
-
-    .hero-cta {
-      margin-top: 44px;
-      display: flex;
-      gap: 16px;
-      position: relative;
-      z-index: 1;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      padding: 14px 34px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s, opacity 0.15s;
-    }
-
-    .btn:hover { transform: translateY(-2px); opacity: 0.9; }
-
-    .btn-primary { background: var(--red); color: var(--white); }
-    .btn-outline {
-      background: transparent;
-      color: var(--light);
-      border: 1.5px solid rgba(240,237,232,0.35);
-    }
-
-    /* ── SECTION BASE ── */
-    section {
-      padding: 96px 48px;
-    }
-
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 10px;
-    }
-
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.4rem, 5vw, 3.8rem);
-      letter-spacing: 0.05em;
-      color: var(--white);
-      margin-bottom: 48px;
-      line-height: 1;
-    }
-
-    .section-title span { color: var(--gold); }
-
-    .divider {
-      width: 48px;
-      height: 3px;
-      background: var(--red);
-      margin: 16px 0 48px;
-    }
-
-    /* ── PEOPLE ── */
-    #people { background: var(--offblack); }
-
-    .people-tabs {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 40px;
-      flex-wrap: wrap;
-    }
-
-    .tab-btn {
-      padding: 9px 22px;
-      background: transparent;
-      border: 1.5px solid var(--grey);
-      color: rgba(240,237,232,0.55);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .tab-btn.active, .tab-btn:hover {
-      background: var(--red);
-      border-color: var(--red);
-      color: var(--white);
-    }
-
-    .people-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 24px;
-    }
-
-    .person-card {
-      text-align: center;
-    }
-
-    .person-photo {
-      width: 100%;
-      aspect-ratio: 1;
-      background: var(--grey);
-      border-radius: 4px;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(240,237,232,0.2);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .person-name {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--white);
-    }
-
-    .person-role {
-      font-size: 0.75rem;
-      color: var(--gold);
-      margin-top: 3px;
-    }
-
-    /* ── MEDIA SECTIONS (Events, Workshops, Competitions) ── */
-    .media-section { background: var(--black); }
-    .media-section:nth-of-type(even) { background: var(--offblack); }
-
-    .year-tabs {
-      display: flex;
-      gap: 4px;
-      margin-bottom: 36px;
-      flex-wrap: wrap;
-    }
-
-    .year-btn {
-      padding: 7px 18px;
-      background: transparent;
-      border: 1.5px solid var(--grey);
-      color: rgba(240,237,232,0.5);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .year-btn.active, .year-btn:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--black);
-    }
-
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 20px;
-    }
-
-    .media-card {
-      background: var(--grey);
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .media-thumb {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(240,237,232,0.2);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      position: relative;
-    }
-
-    .media-thumb.video::after {
-      content: '▶';
-      position: absolute;
-      font-size: 2rem;
-      color: rgba(255,255,255,0.7);
-      background: rgba(232,25,44,0.8);
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-left: 4px;
-    }
-
-    .media-info {
-      padding: 14px 16px;
-    }
-
-    .media-info h4 {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--white);
-    }
-
-    .media-info p {
-      font-size: 0.75rem;
-      color: rgba(240,237,232,0.5);
-      margin-top: 4px;
-    }
-
-    /* ── CONTACT ── */
-    #contact {
-      background: var(--red);
-      text-align: center;
-    }
-
-    #contact .section-label { color: rgba(255,255,255,0.6); }
-    #contact .section-title { color: var(--white); margin-bottom: 12px; }
-    #contact .section-title span { color: var(--black); }
-
-    .contact-sub {
-      font-size: 1rem;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 36px;
-    }
-
-    .instagram-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--black);
-      color: var(--white);
-      text-decoration: none;
-      padding: 16px 36px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      transition: transform 0.15s;
-    }
-
-    .instagram-link:hover { transform: translateY(-2px); }
-
-    .instagram-link svg { width: 22px; height: 22px; fill: var(--gold); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--black);
-      border-top: 1px solid var(--grey);
-      text-align: center;
-      padding: 28px 24px;
-      font-size: 0.78rem;
-      color: rgba(240,237,232,0.3);
-      letter-spacing: 0.05em;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      .nav-links { gap: 18px; }
-      .nav-links a { font-size: 0.72rem; }
-      section { padding: 72px 20px; }
-    }
-
-    @media (max-width: 520px) {
-      .nav-links { display: none; }
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAV -->
-  <nav>
-    <a class="nav-brand" href="#hero">MAYUR<span>AA</span></a>
-    <ul class="nav-links">
-      <li><a href="#people">People</a></li>
-      <li><a href="#events">Events</a></li>
-      <li><a href="#workshops">Workshops</a></li>
-      <li><a href="#competitions">Competitions</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-
-    <img src="logo.jpg" alt="Mayuraa Logo" style="width:300px; height:300px; border-radius:150%; object-fit:cover; margin-bottom:28px; position:relative; z-index:1;">
-
-    <h1 class="hero-title">
-      <span class="filled">MAY</span><span class="stroke">URAA</span>
-    </h1>
-    <p class="hero-sub">IISERB Dance Club &nbsp;·&nbsp; Where The Flow Never Stops</p>
-
-    <p class="hero-intro">
-      Welcome to Mayuraa's official website! Explore Mayuraa and dive deep into the world of rhythm and movement.
-    </p>
-
-    <div class="hero-cta">
-      <a href="#events" class="btn btn-primary">See Our Work</a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
-    </div>
-  </section>
-
-  <!-- PEOPLE -->
-  <section id="people">
-    <div class="reveal">
-      <p class="section-label">The Team</p>
-      <h2 class="section-title">Our <span>People</span></h2>
-      <div class="divider"></div>
-    </div>
-
-    <div class="people-tabs reveal">
-      <button class="tab-btn active" onclick="showPeople('members', this)">Members</button>
-      <button class="tab-btn" onclick="showPeople('coordinators', this)">Coordinators</button>
-      <button class="tab-btn" onclick="showPeople('alumni', this)">Past Coordinators</button>
-    </div>
-
-    <div id="people-members" class="people-grid reveal">
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Member Name</div><div class="person-role">Dancer</div></div>
-    </div>
-
-    <div id="people-coordinators" class="people-grid reveal" style="display:none">
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Club Coordinator</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Coordinator Name</div><div class="person-role">Club Coordinator</div></div>
-    </div>
-
-    <div id="people-alumni" class="people-grid reveal" style="display:none">
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Alumni Name</div><div class="person-role">Past Coordinator · 2022–23</div></div>
-      <div class="person-card"><div class="person-photo">Photo</div><div class="person-name">Alumni Name</div><div class="person-role">Past Coordinator · 2021–22</div></div>
-    </div>
-  </section>
-
-  <!-- EVENTS -->
-  <section id="events" class="media-section">
-    <div class="reveal">
-      <p class="section-label">Highlights</p>
-      <h2 class="section-title">Our <span>Events</span></h2>
-      <div class="divider"></div>
-    </div>
-
-    <div class="year-tabs reveal" id="events-years">
-      <button class="year-btn active" onclick="showYear('events', '2025', this)">2025</button>
-      <button class="year-btn" onclick="showYear('events', '2024', this)">2024</button>
-      <button class="year-btn" onclick="showYear('events', '2023', this)">2023</button>
-    </div>
-
-    <div id="events-2025" class="media-grid reveal">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>March 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Event Name</h4><p>January 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>February 2025</p></div></div>
-    </div>
-    <div id="events-2024" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>November 2024</p></div></div>
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Event Name</h4><p>August 2024</p></div></div>
-    </div>
-    <div id="events-2023" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Event Name</h4><p>October 2023</p></div></div>
-    </div>
-  </section>
-
-  <!-- WORKSHOPS -->
-  <section id="workshops" class="media-section" style="background: var(--offblack);">
-    <div class="reveal">
-      <p class="section-label">Learn & Grow</p>
-      <h2 class="section-title">Work<span>shops</span></h2>
-      <div class="divider"></div>
-    </div>
-
-    <div class="year-tabs reveal">
-      <button class="year-btn active" onclick="showYear('workshops', '2025', this)">2025</button>
-      <button class="year-btn" onclick="showYear('workshops', '2024', this)">2024</button>
-      <button class="year-btn" onclick="showYear('workshops', '2023', this)">2023</button>
-    </div>
-
-    <div id="workshops-2025" class="media-grid reveal">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Name</h4><p>April 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Name</h4><p>February 2025</p></div></div>
-    </div>
-    <div id="workshops-2024" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Workshop Name</h4><p>September 2024</p></div></div>
-    </div>
-    <div id="workshops-2023" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Workshop Name</h4><p>July 2023</p></div></div>
-    </div>
-  </section>
-
-  <!-- COMPETITIONS -->
-  <section id="competitions" class="media-section">
-    <div class="reveal">
-      <p class="section-label">The Stage</p>
-      <h2 class="section-title">Competi<span>tions</span></h2>
-      <div class="divider"></div>
-    </div>
-
-    <div class="year-tabs reveal">
-      <button class="year-btn active" onclick="showYear('competitions', '2025', this)">2025</button>
-      <button class="year-btn" onclick="showYear('competitions', '2024', this)">2024</button>
-      <button class="year-btn" onclick="showYear('competitions', '2023', this)">2023</button>
-    </div>
-
-    <div id="competitions-2025" class="media-grid reveal">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Competition Name</h4><p>March 2025</p></div></div>
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Competition Name</h4><p>January 2025</p></div></div>
-    </div>
-    <div id="competitions-2024" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb video">Video</div><div class="media-info"><h4>Competition Name</h4><p>December 2024</p></div></div>
-    </div>
-    <div id="competitions-2023" class="media-grid reveal" style="display:none">
-      <div class="media-card"><div class="media-thumb">Photo</div><div class="media-info"><h4>Competition Name</h4><p>October 2023</p></div></div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="reveal">
-      <p class="section-label">Say Hello</p>
-      <h2 class="section-title">Find Us <span>Online</span></h2>
-    </div>
-    <p class="contact-sub reveal">Follow us for the latest updates, reels, and behind-the-scenes.</p>
-    <div class="reveal">
-      <a href="https://instagram.com/mayuraa_danceclub" target="_blank" class="instagram-link">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-        </svg>
-        @mayuraa_danceclub
-      </a>
-    </div>
-  </section>
-
-  <footer>
-    © 2025 Mayuraa Dance Club &nbsp;·&nbsp; All rights reserved
-  </footer>
-
-  <script>
-    // People tabs
-    function showPeople(tab, btn) {
-      ['members','coordinators','alumni'].forEach(t => {
-        document.getElementById('people-' + t).style.display = 'none';
-      });
-      document.getElementById('people-' + tab).style.display = 'grid';
-      document.querySelectorAll('.people-tabs .tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-
-    // Year tabs
-    function showYear(section, year, btn) {
-      ['2025','2024','2023'].forEach(y => {
-        const el = document.getElementById(section + '-' + y);
-        if (el) el.style.display = 'none';
-      });
-      const target = document.getElementById(section + '-' + year);
-      if (target) target.style.display = 'grid';
-      btn.closest('.year-tabs').querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
-</body>
-</html>
+## Notes for Future Coordinators
+- Always share the **latest version** of the HTML file when asking Claude for changes
+- Keep the `SAMAN___.TTF` and `logo.jpg` files in the repository — deleting them breaks the site
+- The Spotify playlist ID can be updated in `people.html` — search for `YOUR_PLAYLIST_ID`
+- YouTube link can be updated in `contact.html` once the channel is created
