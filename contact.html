@@ -23,64 +23,7 @@
       --white:    #FFFFFF;
     }
 
-    /* MOBILE FIX */
-@media (max-width: 768px) {
-  nav { padding: 16px 20px; }
-  .nav-links { gap: 16px; }
-  section { padding: 64px 20px; }
-  .page-header { padding: 120px 20px 48px; }
-
-  .media-grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  }
-
-  .participants-strip { gap: 8px; }
-
-  .participant-chip { padding: 5px 10px; }
-  .participant-chip span { font-size: 0.72rem; }
-
-  .year-tabs { gap: 4px; }
-  .year-btn { padding: 6px 12px; font-size: 0.7rem; }
-
-  .achievements-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .people-grid {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title { font-size: clamp(2rem, 12vw, 4rem); }
-  .hero-sub { font-size: 0.7rem; letter-spacing: 0.15em; }
-  .hero-intro { font-size: 0.92rem; }
-  .section-title { font-size: clamp(1.8rem, 8vw, 3rem); }
-
-  .media-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .carousel-slide { min-width: 220px; }
-
-  .contact-links { flex-direction: column; align-items: center; }
-
-  .lightbox-arrow.left { left: 8px; }
-  .lightbox-arrow.right { right: 8px; }
-}
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--light);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
+  
     /* ── NAV ── */
     nav {
       position: fixed;
@@ -312,18 +255,24 @@
       letter-spacing: 0.05em;
     }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
+  @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { gap: 16px; }
       section { padding: 64px 20px; }
       .page-header { padding: 120px 20px 48px; }
+      .media-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .participants-strip { gap: 8px; }
+      .participant-chip { padding: 5px 10px; }
+      .participant-chip span { font-size: 0.72rem; }
+      .year-btn { padding: 6px 12px; font-size: 0.7rem; }
     }
-
     @media (max-width: 520px) {
       .nav-links { display: none; }
+      .media-grid { grid-template-columns: 1fr 1fr; }
+      .section-title { font-size: clamp(1.8rem, 8vw, 3rem); }
+      .lightbox-arrow.left { left: 8px; }
+      .lightbox-arrow.right { right: 8px; }
     }
-
     /* ── SCROLL REVEAL ── */
     .reveal {
       opacity: 0;
