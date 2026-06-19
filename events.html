@@ -662,10 +662,21 @@
       document.body.style.overflow = 'hidden';
     }
 
+    function preload(index) {
+      const i = (index + lightboxImages.length) % lightboxImages.length;
+      if (!lightboxImages[i]) return;
+      const img = new Image();
+      img.src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[i] + '&sz=w1600';
+    }
+
     function updateLightboxImage() {
       if (lightboxImages.length === 0) return;
       const img = document.getElementById('lightboxImg');
       img.src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[lightboxIndex] + '&sz=w1600';
+      preload(lightboxIndex + 1);
+      preload(lightboxIndex + 2);
+      preload(lightboxIndex - 1);
+      preload(lightboxIndex - 2);
     }
 
     function closeLightbox() {
