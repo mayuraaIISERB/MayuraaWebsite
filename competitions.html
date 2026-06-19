@@ -558,7 +558,7 @@
   </div>
 
   <script>
-    function toggleMenu() {
+   function toggleMenu() {
       document.getElementById('navLinks').classList.toggle('open');
     }
     document.querySelectorAll('.nav-links a').forEach(a => {
@@ -585,7 +585,6 @@
       btn.classList.add('active');
     }
 
-    // Lightbox with arrows
     let lightboxImages = [];
     let lightboxIndex = 0;
 
@@ -596,6 +595,7 @@
     }
 
     function preload(index) {
+      if (lightboxImages.length === 0) return;
       const i = (index + lightboxImages.length) % lightboxImages.length;
       const img = new Image();
       img.src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[i] + '&sz=w1600';
@@ -605,15 +605,13 @@
       lightboxIndex = (lightboxIndex + lightboxImages.length + dir) % lightboxImages.length;
       document.getElementById('lightboxImg').src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[lightboxIndex] + '&sz=w1600';
       preload(lightboxIndex + 1);
-      preload(lightboxIndex - 1);
-    }
-
-   document.getElementById('lightboxImg').src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[lightboxIndex] + '&sz=w1600';
-        document.getElementById('lightbox').classList.add('active');
-       preload(lightboxIndex + 1);
       preload(lightboxIndex + 2);
       preload(lightboxIndex - 1);
       preload(lightboxIndex - 2);
+    }
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
     });
 
     document.addEventListener('keydown', e => {
@@ -632,6 +630,10 @@
         lightboxIndex = lightboxImages.indexOf(clickedId);
         document.getElementById('lightboxImg').src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[lightboxIndex] + '&sz=w1600';
         document.getElementById('lightbox').classList.add('active');
+        preload(lightboxIndex + 1);
+        preload(lightboxIndex + 2);
+        preload(lightboxIndex - 1);
+        preload(lightboxIndex - 2);
       });
     });
 
