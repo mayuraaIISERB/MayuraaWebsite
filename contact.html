@@ -424,7 +424,7 @@
 
         rows.reverse().forEach(row => {
           const cols = row.match(/(".*?"|[^",]+)(?=,|$)/g).map(c => c.replace(/^"|"$/g, ""));
-          const [timestamp, name, comment] = cols;
+          const [timestamp, email, name, comment] = cols;
 
           const card = document.createElement("div");
           card.className = "comment-card";
