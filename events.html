@@ -1,528 +1,1347 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>What We Do — Mayuraa Dance Club</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    @font-face {
-      font-family: 'Samarkan';
-      src: url('SAMAN___.TTF') format('truetype');
-    }
-  </style>
-  <style>
-    :root {
-      --green:    #00A86B;
-      --blue:     #1B6CA8;
-      --gold:     #D4AF37;
-      --black:    #0A0A0A;
-      --offblack: #111411;
-      --grey:     #1E2A1E;
-      --light:    #E8F0E8;
-      --white:    #FFFFFF;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What We Do — Mayuraa Dance Club</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @font-face {
+        font-family: "Samarkan";
+        src: url("SAMAN___.TTF") format("truetype");
+      }
+    </style>
+    <style>
+      :root {
+        --green: #00a86b;
+        --blue: #1b6ca8;
+        --gold: #d4af37;
+        --black: #0a0a0a;
+        --offblack: #111411;
+        --grey: #1e2a1e;
+        --light: #e8f0e8;
+        --white: #ffffff;
+      }
 
-.lightbox-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 999;
-      align-items: center;
-      justify-content: center;
-    }
-    .lightbox-overlay.active { display: flex; }
-    .lightbox-overlay img {
-      max-width: 90vw;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 4px;
-      pointer-events: none;
-    }
-    .lightbox-close {
-      position: fixed;
-      top: 24px;
-      right: 32px;
-      font-size: 2rem;
-      color: var(--white);
-      cursor: pointer;
-      background: none;
-      border: none;
-      line-height: 1;
-      opacity: 0.7;
-      transition: opacity 0.2s;
-      z-index: 1001;
-    }
-    .lightbox-close:hover { opacity: 1; }
-    .lightbox-arrow {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.1);
-      border: 1.5px solid rgba(255,255,255,0.2);
-      color: var(--white);
-      font-size: 1.5rem;
-      width: 48px;
-      height: 48px;
-      cursor: pointer;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-      z-index: 1000;
-    }
-    .lightbox-arrow:hover { background: var(--green); border-color: var(--green); }
-    .lightbox-arrow.left { left: 24px; }
-    .lightbox-arrow.right { right: 24px; }
-    .media-card img { cursor: pointer; }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--black);
-      color: var(--light);
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px clamp(16px, 4vw, 48px);
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(0,168,107,0.25);
-    }
-
-    .nav-brand {
-      font-family: 'Samarkan', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.12em;
-      color: var(--white);
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-    .nav-brand span { color: var(--green); }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links a {
-      color: var(--light);
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links a.active { color: var(--gold); }
-
-    /* HAMBURGER */
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      color: var(--white);
-      font-size: 1.6rem;
-      cursor: pointer;
-      padding: 4px 8px;
-      z-index: 101;
-    }
-
-    /* SECTION BASE */
-    section { padding: 96px clamp(16px, 4vw, 48px); }
-
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--green);
-      margin-bottom: 10px;
-    }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 7vw, 3.8rem);
-      letter-spacing: 0.05em;
-      color: var(--white);
-      margin-bottom: 8px;
-      line-height: 1;
-    }
-    .section-title span { color: var(--gold); }
-    .divider { width: 48px; height: 3px; background: var(--green); margin: 16px 0 40px; }
-
-    /* PAGE HEADER */
-    .page-header {
-      min-height: 38vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 140px clamp(16px, 4vw, 48px) 60px;
-      position: relative;
-      overflow: hidden;
-      background: var(--offblack);
-    }
-    .page-header-bg {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(0,168,107,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(27,108,168,0.06) 0%, transparent 60%);
-    }
-    .page-header h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 8vw, 6rem);
-      letter-spacing: 0.06em;
-      color: var(--white);
-      position: relative;
-      z-index: 1;
-    }
-    .page-header h1 span { color: var(--gold); }
-    .page-header p {
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--green);
-      position: relative;
-      z-index: 1;
-      margin-top: 12px;
-    }
-
-    /* YEAR TABS */
-    .year-tabs { display: flex; gap: 4px; margin-bottom: 28px; flex-wrap: wrap; }
-    .year-btn {
-      padding: 7px 18px;
-      background: transparent;
-      border: 1.5px solid var(--grey);
-      color: rgba(232,240,232,0.5);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .year-btn.active, .year-btn:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--black);
-    }
-
-    /* MEDIA */
-    .media-section { background: var(--black); }
-    .media-section.alt { background: var(--offblack); }
-    .media-subsection { margin-bottom: 48px; }
-    .media-subsection-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.08em;
-      color: var(--blue);
-      margin-bottom: 16px;
-    }
-    .media-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 18px;
-    }
-    .media-card { background: var(--grey); border-radius: 4px; overflow: hidden; }
-    .media-thumb {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #1a2a1a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(232,240,232,0.2);
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .media-info { padding: 12px 14px; }
-    .media-info h4 { font-weight: 600; font-size: 0.88rem; color: var(--white); }
-    .media-info p { font-size: 0.73rem; color: rgba(232,240,232,0.5); margin-top: 3px; }
-
-    .toggle-photos-btn {
-      margin-left: 14px;
-      padding: 4px 14px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      background: transparent;
-      border: 1.5px solid var(--gold);
-      color: var(--gold);
-      cursor: pointer;
-      transition: all 0.2s;
-      vertical-align: middle;
-    }
-    .toggle-photos-btn:hover { background: var(--gold); color: var(--black); }
-
-    /* FOOTER */
-    footer {
-      background: var(--black);
-      border-top: 1px solid var(--grey);
-      text-align: center;
-      padding: 24px;
-      font-size: 0.76rem;
-      color: rgba(232,240,232,0.3);
-      letter-spacing: 0.05em;
-    }
-
-    /* MOBILE */
-    @media (max-width: 768px) {
-      .nav-links { gap: 14px; }
-      .nav-links a { font-size: 0.7rem; letter-spacing: 0.08em; }
-      .media-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-      .year-btn { padding: 6px 12px; font-size: 0.7rem; }
-    }
-
-    @media (max-width: 520px) {
-      .hamburger { display: block; }
-      .nav-links {
+      .lightbox-overlay {
         display: none;
         position: fixed;
-        top: 60px;
-        left: 0; right: 0;
-        background: rgba(10,10,10,0.97);
-        flex-direction: column;
-        padding: 24px;
-        gap: 20px;
-        border-bottom: 1px solid rgba(0,168,107,0.25);
-        z-index: 99;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.92);
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
       }
-      .nav-links.open { display: flex; }
-      .nav-links a { font-size: 1rem; }
-      .media-grid { grid-template-columns: 1fr 1fr; }
-      .section-title { font-size: clamp(1.8rem, 8vw, 3rem); }
-    }
+      .lightbox-overlay.active {
+        display: flex;
+      }
+      .lightbox-overlay img {
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 4px;
+        pointer-events: none;
+      }
+      .lightbox-close {
+        position: fixed;
+        top: 24px;
+        right: 32px;
+        font-size: 2rem;
+        color: var(--white);
+        cursor: pointer;
+        background: none;
+        border: none;
+        line-height: 1;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+        z-index: 1001;
+      }
+      .lightbox-close:hover {
+        opacity: 1;
+      }
+      .lightbox-arrow {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.1);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        color: var(--white);
+        font-size: 1.5rem;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+        z-index: 1000;
+      }
+      .lightbox-arrow:hover {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .lightbox-arrow.left {
+        left: 24px;
+      }
+      .lightbox-arrow.right {
+        right: 24px;
+      }
+      .media-card img {
+        cursor: pointer;
+      }
 
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .reveal.visible { opacity: 1; transform: none; }
-  </style>
-</head>
-<body>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
 
-  <nav>
-    <a class="nav-brand" href="index.html">MAYUR<span>AA</span></a>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()">&#9776;</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="people.html">People</a></li>
-      <li><a href="events.html" class="active">What We Do</a></li>
-      <li><a href="competitions.html">IICM</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+      body {
+        background: var(--black);
+        color: var(--light);
+        font-family: "Inter", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
 
-  <div class="page-header">
-    <div class="page-header-bg"></div>
-    <h1>What We Do</h1>
-  </div>
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px clamp(16px, 4vw, 48px);
+        background: rgba(10, 10, 10, 0.88);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 168, 107, 0.25);
+      }
 
-  <!-- WORKSHOPS -->
-  <section id="workshops" class="media-section alt">
-    <div class="reveal">
-      <h2 class="section-title"><span>Workshops</span></h2>
-      <div class="divider"></div>
+      .nav-brand {
+        font-family: "Samarkan", sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 0.12em;
+        color: var(--white);
+        text-decoration: none;
+        flex-shrink: 0;
+      }
+      .nav-brand span {
+        color: var(--green);
+      }
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--light);
+        text-decoration: none;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+      .nav-links a.active {
+        color: var(--gold);
+      }
+
+      /* HAMBURGER */
+      .hamburger {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--white);
+        font-size: 1.6rem;
+        cursor: pointer;
+        padding: 4px 8px;
+        z-index: 101;
+      }
+
+      /* SECTION BASE */
+      section {
+        padding: 96px clamp(16px, 4vw, 48px);
+      }
+
+      .section-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--green);
+        margin-bottom: 10px;
+      }
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2rem, 7vw, 3.8rem);
+        letter-spacing: 0.05em;
+        color: var(--white);
+        margin-bottom: 8px;
+        line-height: 1;
+      }
+      .section-title span {
+        color: var(--gold);
+      }
+      .divider {
+        width: 48px;
+        height: 3px;
+        background: var(--green);
+        margin: 16px 0 40px;
+      }
+
+      /* PAGE HEADER */
+      .page-header {
+        min-height: 38vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 140px clamp(16px, 4vw, 48px) 60px;
+        position: relative;
+        overflow: hidden;
+        background: var(--offblack);
+      }
+      .page-header-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 80% at 50% 100%,
+            rgba(0, 168, 107, 0.08) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 40% 40% at 80% 20%,
+            rgba(27, 108, 168, 0.06) 0%,
+            transparent 60%
+          );
+      }
+      .page-header h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.5rem, 8vw, 6rem);
+        letter-spacing: 0.06em;
+        color: var(--white);
+        position: relative;
+        z-index: 1;
+      }
+      .page-header h1 span {
+        color: var(--gold);
+      }
+      .page-header p {
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--green);
+        position: relative;
+        z-index: 1;
+        margin-top: 12px;
+      }
+
+      /* YEAR TABS */
+      .year-tabs {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+      }
+      .year-btn {
+        padding: 7px 18px;
+        background: transparent;
+        border: 1.5px solid var(--grey);
+        color: rgba(232, 240, 232, 0.5);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .year-btn.active,
+      .year-btn:hover {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--black);
+      }
+
+      /* MEDIA */
+      .media-section {
+        background: var(--black);
+      }
+      .media-section.alt {
+        background: var(--offblack);
+      }
+      .media-subsection {
+        margin-bottom: 48px;
+      }
+      .media-subsection-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.3rem;
+        letter-spacing: 0.08em;
+        color: var(--blue);
+        margin-bottom: 16px;
+      }
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 18px;
+      }
+      .media-card {
+        background: var(--grey);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .media-thumb {
+        width: 100%;
+        aspect-ratio: 16/9;
+        background: #1a2a1a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(232, 240, 232, 0.2);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .media-info {
+        padding: 12px 14px;
+      }
+      .media-info h4 {
+        font-weight: 600;
+        font-size: 0.88rem;
+        color: var(--white);
+      }
+      .media-info p {
+        font-size: 0.73rem;
+        color: rgba(232, 240, 232, 0.5);
+        margin-top: 3px;
+      }
+
+      .toggle-photos-btn {
+        margin-left: 14px;
+        padding: 4px 14px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: transparent;
+        border: 1.5px solid var(--gold);
+        color: var(--gold);
+        cursor: pointer;
+        transition: all 0.2s;
+        vertical-align: middle;
+      }
+      .toggle-photos-btn:hover {
+        background: var(--gold);
+        color: var(--black);
+      }
+
+      /* FOOTER */
+      footer {
+        background: var(--black);
+        border-top: 1px solid var(--grey);
+        text-align: center;
+        padding: 24px;
+        font-size: 0.76rem;
+        color: rgba(232, 240, 232, 0.3);
+        letter-spacing: 0.05em;
+      }
+
+      /* MOBILE */
+      @media (max-width: 768px) {
+        .nav-links {
+          gap: 14px;
+        }
+        .nav-links a {
+          font-size: 0.7rem;
+          letter-spacing: 0.08em;
+        }
+        .media-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+        .year-btn {
+          padding: 6px 12px;
+          font-size: 0.7rem;
+        }
+      }
+
+      @media (max-width: 520px) {
+        .hamburger {
+          display: block;
+        }
+        .nav-links {
+          display: none;
+          position: fixed;
+          top: 60px;
+          left: 0;
+          right: 0;
+          background: rgba(10, 10, 10, 0.97);
+          flex-direction: column;
+          padding: 24px;
+          gap: 20px;
+          border-bottom: 1px solid rgba(0, 168, 107, 0.25);
+          z-index: 99;
+        }
+        .nav-links.open {
+          display: flex;
+        }
+        .nav-links a {
+          font-size: 1rem;
+        }
+        .media-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .section-title {
+          font-size: clamp(1.8rem, 8vw, 3rem);
+        }
+      }
+
+      /* SCROLL REVEAL */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="nav-brand" href="index.html">MAYUR<span>AA</span></a>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        &#9776;
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="people.html">People</a></li>
+        <li><a href="events.html" class="active">What We Do</a></li>
+        <li><a href="competitions.html">IICM</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="page-header">
+      <div class="page-header-bg"></div>
+      <h1>What We Do</h1>
     </div>
 
-    <div class="year-tabs reveal">
-      <button class="year-btn active" onclick="showYear('workshops', '2526', this)">2025–26</button>
-      <button class="year-btn" onclick="showYear('workshops', '2425', this)">2024–25</button>
-      <button class="year-btn" onclick="showYear('workshops', '2324', this)">2023–24</button>
-    </div>
+    <!-- WORKSHOPS -->
+    <section id="workshops" class="media-section alt">
+      <div class="reveal">
+        <h2 class="section-title"><span>Workshops</span></h2>
+        <div class="divider"></div>
+      </div>
 
-    <div id="workshops-2526" class="reveal">
-      <div class="media-subsection">
-        <p class="media-subsection-title">Lezim <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1BLtBZlIalbPPIdKg9_5Gs5jnH-mig3_g&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1MdmHhs42399tLiU7Xd7LxnhEF9yV9yRE&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
+      <div class="year-tabs reveal">
+        <button
+          class="year-btn active"
+          onclick="showYear('workshops', '2627', this)"
+        >
+          2026–27
+        </button>
+        <button class="year-btn" onclick="showYear('workshops', '2526', this)">
+          2025–26
+        </button>
+        <button class="year-btn" onclick="showYear('workshops', '2425', this)">
+          2024–25
+        </button>
+        <button class="year-btn" onclick="showYear('workshops', '2324', this)">
+          2023–24
+        </button>
       </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Bollywood <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1LsAgiVqDqTKxfg8gitpQ5pZoTHwhtfOM&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1F4IA4SZsaD1-oAJILba5kraZxSAUZe-G&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1-KYJBCoLojK5OHJTS0B_dQMSl9bKhRgs&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1u3h66DM3DuiAdJyrYupyYzi2g7EXgK6h&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1w6RVui75d1JByKcHJjkFyzG21CoTKWsd&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1P2zioVMPd4KkQ_ABtnApEbj2qpxAEprd&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=15n22huSAZ4nkN1jQ2aQFe4ZlrHsFsCB4&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1E4h4NsIB_AKRZI5_T7TLuJ-HoiszzfIa&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Fp1X25rcHIjllJq2xuE_c7xI2Hj4wivi&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1SAdsGTfl97HCVjnwJ80eJEBmu9XIm34X&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1yrg2zdNLO5mpYnl4Et-36UVJtTcs5rtp&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1WR4zOrxurpXR3DgOJyYd26etIqi1oG_Y&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1YF4rMEzO7Rr5v8kUmKhTeZXZW-UyQizx&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1dkLL-EsTjKb_arv30ZBKcODPxczqMeIe&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Classical <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=10xkTDnrhZPrw9Upn3d2HdtS-tfHw9v-j&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nEzQfTyHVcWt-G5dmRnpfSMWS9ka6cbT&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1BrunLJPcuvZ6vEGbdtfVPUDXAW8xVb7k&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1V-NJT7Z0vBeZRQXpEFK7wAOQkm111f_u&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1G3D10AqbsoEet_ubePHGhHtJKn91tENf&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1ax_gUq9ADIM9pI2gMbmiRLA3y__rt71N&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1HR2G59k8Ln62YvqGSwtjiAx6arWikIbS&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1tRcvr7xEAmAyeskYj3Ou42DOziRVuxUn&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=111wgzPFhTeVNZcvwi6HPxqCtb8EAKetG&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=11OxKqEE4gUi-b-VvPUzLBPz0xUC0UD3x&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1N33OmdZBHM3uVcWJDqk4YPmXB0BV48Ry&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Salsa <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1YWWHJWZcznIAm0Zh8jVCvU_bxdgOmmfj&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1rgnd7At6zUZOYAuzD7mPphFZIEJ21eY2&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1pPpVInS7g_BokDHmbFxoprsKugYKYsGn&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1IhqKiGA7YM0dGwjyYnffRaSCh52Qpb0q&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1VloFn7jjne3ArEMOw0m7lZ9xfcxR2oWJ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=14teEfZbr_fm7JhT2uZ0zIuA8JjVXoKND&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=15bCNpLxo82pHUK0_quHOW0XN-De-ZUt0&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1R434Virrpi0wFlb-lTKnXxH1bEOieS7V&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1UU25tB06FyhzEE6KwOJS-xSyc4sc_4jJ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1I2rBZmUvPIgheKuhsTDhqy9LFcen5B4k&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1y5CTrOx1WSfhcYRhJOWN-T4KEeeQBfRt&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1S0tOE9zhAgR27TNwSbTZvuo7GlnLElLS&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1hiWdYVDCSI4ir9saZBSIZ6h40whsVI9X&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1B2XMiFL2EoRDL2ytBUdnNjwIk_izZoio&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1L4zkoIZb4hIH7-7iU5EyaCuubjKeoI9O&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1eot-X3GROrQBtSsUhxgRboTnn0PyLeHy&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          
-        </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">HipHop <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1v8KAlhgKe60NL-z568SKz41uwlrvs_jA&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1f8uGQBWPzhUI2XCLsteVbYZnFi3PAYZ8&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1q4fAA33fDlD_4jYDrXsgB36SE9_YzUcg&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Cu3Z1JfFCmjOcKiqFjit2PpCqOnTtw9G&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1CqbWaVDB_H2hvrpoOAWMQI7dR_cAouim&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1FJzWnJy4NF3vmytDKbXNvMEacrHSxKAH&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=10YvUqEyV0lKQBWPdFGh0nHvmPuQWTX4L&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1TR55GKodqkK2_HWX7KxNYJP1mTqgQNpg&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1R05ZrJfHq7hHZrOVmGS3Au_a6-h1RIDQ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-    </div>
 
-    <div id="workshops-2425" style="display:none" class="reveal">
-      <div class="media-subsection">
-        <p class="media-subsection-title">House <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=14qpN2Q8WH1hiKv99qK-z7AXEF4WiY1d5&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1sVgc5du7X8F3y-khe3OpLRAcXwkXx2Zd&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1qWI2ISMS2kzE6yRoQx1kBfxW_d7H2Ckf&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1ObamkwO4rIpdsRp29LOqPcnbdRmj69po&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
+      <div id="workshops-2627" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Rhyhtms Of the South 2.0
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=15wrNHvke6gmCw4UMteoHdmyDLVGIKyoS&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1NSm6nIx-06INuI3FS2JkWfBzhckXylbw&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1N00HFp8Zi8Pm0FbGyzkzW4JcYkSwnDg3&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1zA8Bw1KzONm9s_U5-Nvz3WiS3nSv5-U0&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1bzVxepBmIy0da_PwRJ2tzTS5LRZUedeM&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1FR6h77Rg0yAiuziZqEQ3hjnBiJGYU7rV&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1LzXWfxvwyntHX4SAlyb85R46NmI2esrL&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1N8LUfKIf69zjp22imJnsSCJBsiM9UmKQ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=12cdL3nw4o5GyZF40eprYLAnZiWurBEGJ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1jbMGyq-BcWIa4oRxrBOvr_NsowpGzseQ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Lezim
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1QW1WGJCnLMtxu1pmc2tesjo0YVhEa0UJ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1o5PXt01X_vE-pD05trbf_aAancKKbPGg&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1n7l7ZKsb2Xn8yjVr9fBrWkaHeNYCOTTH&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1_ZMhjAZYIV1LpWV_OEazDlid3SOuWr2o&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1mSnxVl4wRkyEj3HfvfwWbzUDca1KGL4H&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Salsa <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1woNLyUNgOqIdhPMHTaQDAASKXplq2wI9&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1ZffO_wIwVGgealKCTev1dyai2cx7pa8i&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1KY8j9WHuYNdMpCklGLy9is06f_jvo4D-&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1WixFBt4GI--KNC0a9YDMklk9eowWh3kc&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Y-TcRfQ45SAJoWC5HRLAXHVSsovuaxFm&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1dm7xDixMj_AsMzsBarVrkqtHkMa56V4b&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1GLZLh1gy49A36OuioR-tPVerYUQqAwsD&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1eIBp71WRQP2PPIQKqbcSj9rYL4fsuSEF&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1yPB5HIgRchRTKDvA2lpK-ce2aeBdmbA_&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1XUU5krRFXGX8SR6ROEacOohKa4zMebv-&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nhfG-h1Nqc3yq5p1e1HyazSMsFham1ze&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=194swr1vmFFOM3ZrBBvxo57zhdQqNiH7C&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1186Q5aJRGCtQJOJQmom-Jysjeb2zzpIk&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=100ZDhdyZGBXVgLuTmjy6m9RpA9oAvRyk&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Rhythms Of South <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1tIecRYFR5I4KoVyfd8I20xzeygdHGOvU&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1zNcpSuCMhVTtZmJwSfYlPFnpzo9BfWBk&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=17EMmMxwUGay5cUG2faEEw6YJCPGq4Abz&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1tvOjd-KSJSH7_UC3S0hm6QGwR_-CgZye&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1oaZUnzTAkw0sZbVoaZY2AyCsO7WXrfOG&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Kathak <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1d-laUiW_MTf0EHsevf3WYdM-Zv9wzkAP&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Gu1JJcFHetYlYBXBE1MPsNHzJZ9CnJcQ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1diaSLgiRGnVRsO3hPhp02Uu8C6clrTOc&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1xGMKMvxvqpt1SUaMcRwfiqqE7-mhvC1c&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1H9Oa1vU6OmoXRmasyHY75imLvVRVaUs2&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1o5YTpocFl5iT2k6LNvPzcvDh-g-XWHlS&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1fhdDd2e12br-clL1h3PpVqlnLmyw4QHj&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=16Veb99L-Xu3NSDcJVli_BDSjUCVGN12I&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Lezim <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1dAJDU68A-quJWDH1ebGR5De_pyevRx4P&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Ac8cV3QFABbigr0uyioTwh3IFBntBqsH&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=18mG_YQQyFQNWCxnUmEjiPvA3wTRdL3-s&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nhMwgghZ0KBbIANKnxvXYSfEyddD6xYo&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1W0s8cxCEcUsD03g0_AuvG47kDhoxn13d&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1KOlIQ_fOTaKm-L0tn5Ehnsn3fOEun33z&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Yr9xnyMpeP4l5ie-r-q_j_fL8fnWGewI&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-       <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1_ZCrcT1IfQoT8j6C5ujFElkhh4aI44yP&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
 
-          
+      <div id="workshops-2526" style="display: none" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Lezim
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1BLtBZlIalbPPIdKg9_5Gs5jnH-mig3_g&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1MdmHhs42399tLiU7Xd7LxnhEF9yV9yRE&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div id="workshops-2324" style="display:none" class="reveal">
-      <div class="media-subsection">
-        <p class="media-subsection-title">Break A Leg- HipHop<button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=15fkxbphPTwjz7O9WUnKTz0uwvdLHuHy8&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=11HFyrABIL3UOelyHKNq1zOmwlLgeC3DN&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1FVMqiW4gTGc4hoMBbV1jVG8e28rBCHXv&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Bollywood
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1LsAgiVqDqTKxfg8gitpQ5pZoTHwhtfOM&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1F4IA4SZsaD1-oAJILba5kraZxSAUZe-G&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1-KYJBCoLojK5OHJTS0B_dQMSl9bKhRgs&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1u3h66DM3DuiAdJyrYupyYzi2g7EXgK6h&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1w6RVui75d1JByKcHJjkFyzG21CoTKWsd&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1P2zioVMPd4KkQ_ABtnApEbj2qpxAEprd&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=15n22huSAZ4nkN1jQ2aQFe4ZlrHsFsCB4&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1E4h4NsIB_AKRZI5_T7TLuJ-HoiszzfIa&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Fp1X25rcHIjllJq2xuE_c7xI2Hj4wivi&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1SAdsGTfl97HCVjnwJ80eJEBmu9XIm34X&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1yrg2zdNLO5mpYnl4Et-36UVJtTcs5rtp&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1WR4zOrxurpXR3DgOJyYd26etIqi1oG_Y&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1YF4rMEzO7Rr5v8kUmKhTeZXZW-UyQizx&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1dkLL-EsTjKb_arv30ZBKcODPxczqMeIe&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Classical
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=10xkTDnrhZPrw9Upn3d2HdtS-tfHw9v-j&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nEzQfTyHVcWt-G5dmRnpfSMWS9ka6cbT&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1BrunLJPcuvZ6vEGbdtfVPUDXAW8xVb7k&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1V-NJT7Z0vBeZRQXpEFK7wAOQkm111f_u&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1G3D10AqbsoEet_ubePHGhHtJKn91tENf&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ax_gUq9ADIM9pI2gMbmiRLA3y__rt71N&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1HR2G59k8Ln62YvqGSwtjiAx6arWikIbS&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1tRcvr7xEAmAyeskYj3Ou42DOziRVuxUn&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=111wgzPFhTeVNZcvwi6HPxqCtb8EAKetG&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=11OxKqEE4gUi-b-VvPUzLBPz0xUC0UD3x&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1N33OmdZBHM3uVcWJDqk4YPmXB0BV48Ry&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Salsa
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1YWWHJWZcznIAm0Zh8jVCvU_bxdgOmmfj&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1rgnd7At6zUZOYAuzD7mPphFZIEJ21eY2&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1pPpVInS7g_BokDHmbFxoprsKugYKYsGn&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1IhqKiGA7YM0dGwjyYnffRaSCh52Qpb0q&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1VloFn7jjne3ArEMOw0m7lZ9xfcxR2oWJ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=14teEfZbr_fm7JhT2uZ0zIuA8JjVXoKND&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=15bCNpLxo82pHUK0_quHOW0XN-De-ZUt0&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1R434Virrpi0wFlb-lTKnXxH1bEOieS7V&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1UU25tB06FyhzEE6KwOJS-xSyc4sc_4jJ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1I2rBZmUvPIgheKuhsTDhqy9LFcen5B4k&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1y5CTrOx1WSfhcYRhJOWN-T4KEeeQBfRt&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1S0tOE9zhAgR27TNwSbTZvuo7GlnLElLS&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1hiWdYVDCSI4ir9saZBSIZ6h40whsVI9X&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1B2XMiFL2EoRDL2ytBUdnNjwIk_izZoio&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1L4zkoIZb4hIH7-7iU5EyaCuubjKeoI9O&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1eot-X3GROrQBtSsUhxgRboTnn0PyLeHy&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            HipHop
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1v8KAlhgKe60NL-z568SKz41uwlrvs_jA&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1f8uGQBWPzhUI2XCLsteVbYZnFi3PAYZ8&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1q4fAA33fDlD_4jYDrXsgB36SE9_YzUcg&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Cu3Z1JfFCmjOcKiqFjit2PpCqOnTtw9G&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1CqbWaVDB_H2hvrpoOAWMQI7dR_cAouim&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1FJzWnJy4NF3vmytDKbXNvMEacrHSxKAH&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=10YvUqEyV0lKQBWPdFGh0nHvmPuQWTX4L&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1TR55GKodqkK2_HWX7KxNYJP1mTqgQNpg&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1R05ZrJfHq7hHZrOVmGS3Au_a6-h1RIDQ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Garba <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Iezv9MlmSwJroCH-t4bemovbeHyXVGKG&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1wzbLY6GBGK3uO04SpFF8drhC7f3b3WRz&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1YHZHj_bDrIMztV5_YC6iZ-hiBwJwOGDe&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1_V-d4WPL_jnP6pXtqIIqARrlJAa2vOnL&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1luJg4UMr6V2S-XkgFDStbsbrmWHbx4fE&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1fYLKUuqntQ_d-Cuz7XGlF5KP-ULmXwLL&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1jlOKCc5bmXLiXeBB_07LZCzTRzoOVrNX&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1cpTtlQWDfVfQtlEjh9Y6Iv_Nx7Gv1hsz&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1gnUPAnxzPxGf1R5Pn8ampJt-bpy9_9Fe&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1otLZ7XWk6FKrDwqmRkjPUk0emHZwaf5t&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
+
+      <div id="workshops-2425" style="display: none" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            House
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=14qpN2Q8WH1hiKv99qK-z7AXEF4WiY1d5&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1sVgc5du7X8F3y-khe3OpLRAcXwkXx2Zd&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1qWI2ISMS2kzE6yRoQx1kBfxW_d7H2Ckf&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ObamkwO4rIpdsRp29LOqPcnbdRmj69po&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Salsa
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1woNLyUNgOqIdhPMHTaQDAASKXplq2wI9&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ZffO_wIwVGgealKCTev1dyai2cx7pa8i&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1KY8j9WHuYNdMpCklGLy9is06f_jvo4D-&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1WixFBt4GI--KNC0a9YDMklk9eowWh3kc&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Y-TcRfQ45SAJoWC5HRLAXHVSsovuaxFm&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1dm7xDixMj_AsMzsBarVrkqtHkMa56V4b&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1GLZLh1gy49A36OuioR-tPVerYUQqAwsD&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1eIBp71WRQP2PPIQKqbcSj9rYL4fsuSEF&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1yPB5HIgRchRTKDvA2lpK-ce2aeBdmbA_&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1XUU5krRFXGX8SR6ROEacOohKa4zMebv-&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nhfG-h1Nqc3yq5p1e1HyazSMsFham1ze&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=194swr1vmFFOM3ZrBBvxo57zhdQqNiH7C&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1186Q5aJRGCtQJOJQmom-Jysjeb2zzpIk&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=100ZDhdyZGBXVgLuTmjy6m9RpA9oAvRyk&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Rhythms Of South
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1tIecRYFR5I4KoVyfd8I20xzeygdHGOvU&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1zNcpSuCMhVTtZmJwSfYlPFnpzo9BfWBk&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=17EMmMxwUGay5cUG2faEEw6YJCPGq4Abz&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1tvOjd-KSJSH7_UC3S0hm6QGwR_-CgZye&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1oaZUnzTAkw0sZbVoaZY2AyCsO7WXrfOG&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Kathak
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1d-laUiW_MTf0EHsevf3WYdM-Zv9wzkAP&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Gu1JJcFHetYlYBXBE1MPsNHzJZ9CnJcQ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1diaSLgiRGnVRsO3hPhp02Uu8C6clrTOc&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1xGMKMvxvqpt1SUaMcRwfiqqE7-mhvC1c&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1H9Oa1vU6OmoXRmasyHY75imLvVRVaUs2&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1o5YTpocFl5iT2k6LNvPzcvDh-g-XWHlS&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1fhdDd2e12br-clL1h3PpVqlnLmyw4QHj&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=16Veb99L-Xu3NSDcJVli_BDSjUCVGN12I&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Lezim
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1dAJDU68A-quJWDH1ebGR5De_pyevRx4P&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Ac8cV3QFABbigr0uyioTwh3IFBntBqsH&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=18mG_YQQyFQNWCxnUmEjiPvA3wTRdL3-s&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nhMwgghZ0KBbIANKnxvXYSfEyddD6xYo&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1W0s8cxCEcUsD03g0_AuvG47kDhoxn13d&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1KOlIQ_fOTaKm-L0tn5Ehnsn3fOEun33z&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Yr9xnyMpeP4l5ie-r-q_j_fL8fnWGewI&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1_ZCrcT1IfQoT8j6C5ujFElkhh4aI44yP&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    <!--  <div class="media-subsection">
+
+      <div id="workshops-2324" style="display: none" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Break A Leg- HipHop<button
+              class="toggle-photos-btn"
+              onclick="togglePhotos(this)"
+            >
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=15fkxbphPTwjz7O9WUnKTz0uwvdLHuHy8&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=11HFyrABIL3UOelyHKNq1zOmwlLgeC3DN&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1FVMqiW4gTGc4hoMBbV1jVG8e28rBCHXv&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Garba
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Iezv9MlmSwJroCH-t4bemovbeHyXVGKG&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1wzbLY6GBGK3uO04SpFF8drhC7f3b3WRz&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1YHZHj_bDrIMztV5_YC6iZ-hiBwJwOGDe&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1_V-d4WPL_jnP6pXtqIIqARrlJAa2vOnL&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1luJg4UMr6V2S-XkgFDStbsbrmWHbx4fE&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1fYLKUuqntQ_d-Cuz7XGlF5KP-ULmXwLL&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1jlOKCc5bmXLiXeBB_07LZCzTRzoOVrNX&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1cpTtlQWDfVfQtlEjh9Y6Iv_Nx7Gv1hsz&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1gnUPAnxzPxGf1R5Pn8ampJt-bpy9_9Fe&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1otLZ7XWk6FKrDwqmRkjPUk0emHZwaf5t&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <!--  <div class="media-subsection">
         <p class="media-subsection-title">Workshop Name 3 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
         <div class="media-grid collapsible-photos" style="display:none">
           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
@@ -546,151 +1365,663 @@
           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
         </div>
       </div> -->
-    </div>
-  </section>
-
-  <!-- EVENTS-->
-  <section id="events" class="media-section">
-    <div class="reveal">
-      <h2 class="section-title"><span>Our Events</span></h2>
-      <div class="divider"></div>
-    </div>
-
-    <div class="year-tabs reveal">
-      <button class="year-btn active" onclick="showYear('events', 'ev2526', this)">2025–26</button>
-      <button class="year-btn" onclick="showYear('events', 'ev2425', this)">2024–25</button>
-      <button class="year-btn" onclick="showYear('events', 'ev2324', this)">2023–24</button>
-    </div>
-
-    <div id="events-ev2526" class="reveal">
-      <div class="media-subsection">
-        <p class="media-subsection-title">Independence Day '25 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1joPlywSIJMca5oNz06J0Z-XZJUaLC1OU&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1n5lCGY4MnhkKW09hXAQJNhT0G9mePW36&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1oUniystZWgaS1fwFW1OG3Ei7ZjAxWiix&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1ArMKDtyYgoR0y5bYEzT_uCEqSJaz5-0J&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1g1iijgydeHZS55YvTPIuEUlEtw0PqwOz&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=16y9pz3gCONTDcu1avNCzOBD_Pow-6PlA&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
       </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Republic Day '26 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nxBqVByPhvB3Ti6M9pCUYsr-UmYhttPH&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nxBqVByPhvB3Ti6M9pCUYsr-UmYhttPH&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1DMEt5mzQ46Ub638nYx2Utr0skH7vLWIl&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=11PKImEd8PjoBbeus3GSh6tNoRE-dmRLN&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=16yktx847prXALECBj6dt1bbNVDZmXeA6&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1n37sK8OUBAtZd0Stq269QHXgmitG0mBU&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=180wTtdRrAIbLLSnyM9IQ5tzbGCS57roc&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1WESK4-CdifeOeeKO_syhK7lGdPYnQt4T&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=16HeEPMOnPdSHMUOWpnIrWVz7Y5f05px5&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1lAMcJV3-XrLs_umFwi3553BQvz-mhhlD&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1yPzqhbnqAj4AI8k6Tmhimw7CvrP5iCz1&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1ECcmy6SeQOq2EtzlP-Ju3SvkeJniGBTK&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Dance Battle 3.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1GSWpZ6_dxRK8_WMAxW8RM551_6shDE-P&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Jzo55v7r2gEHrra9xKK9Unq28ln27nPr&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1yP6rJXwqDxpUwjib6XHMZNk9UbKOGs8_&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1YR2CrqCVKJ56jtic9IujDXbASushLV_C&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1bBBGLaZg7Ns_rnpRnZaarDIRN8t7vb_f&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1rGWxjfp0aLftfsO_4RTsxFY1fqjgD5xF&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1FHpGe5YBT8kXHfV4piC008mPm4kJBHBj&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-    </div>
+    </section>
 
-    <div id="events-ev2425" style="display:none" class="reveal">
-      <div class="media-subsection">
-        <p class="media-subsection-title">Independence Day '24 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Wb5ePbisPWfNRlOauhaD62_kE8tLku2b&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1YKDvKtQe1Jrq3oZeLihjwvDYO2xFl2I7&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nu2dg3BaU1uUOIlpPH6Aty2kpSQQRCFM&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1hJJvnDXnduuFn-jWyP87IeYiRrj-WeuB&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1wfbVFti9kqUnIU0wjpwOg-U7y4tFFNCC&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1UV87sOEf-T2D5GG6PyMis8-tyzrS0KXf&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
+    <!-- EVENTS-->
+    <section id="events" class="media-section">
+      <div class="reveal">
+        <h2 class="section-title"><span>Our Events</span></h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="year-tabs reveal">
+        <button
+          class="year-btn active"
+          onclick="showYear('events', 'ev2627', this)"
+        >
+          2026–27
+        </button>
+        <button class="year-btn" onclick="showYear('events', 'ev2526', this)">
+          2025–26
+        </button>
+        <button class="year-btn" onclick="showYear('events', 'ev2425', this)">
+          2024–25
+        </button>
+        <button class="year-btn" onclick="showYear('events', 'ev2324', this)">
+          2023–24
+        </button>
+      </div>
+
+      <div id="events-ev2627" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Independence Day '26
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=16R_6I2ROvM48rghxx_mVK0ex6VPHOPP8&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ibmYrUUTUm3CRvIpe0v_2afksVms1KuV&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Pi6zQ1NjMl-kXnjj7bd3FkvVhfi8auDj&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=11Um_G4qBxSXZMnuvdBO-0t8K3DeNL4ic&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1VwGSu5uuvulBUtyCJDG3szcpiQr-X2dT&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=13fyrYZyu98UosiMLnMXwxQJDyTNA6inz&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Q2EjiwJCjkDlf758j22Te3lac1EdZY7L&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1fbTEUiwZSGQQ33UfwfrArC5cOWqR8f5q&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1HpBqyqzyo6PQ78wstYeKt5CwUycidAxB&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1fTf8iqfHcf_vc07Ac-Gc5qbdoOCgriPL&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1lKwuOKjBaFNECyNql6sv88vx2tyXy9sG&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ropAzZVP8UNktdfOgGClQkvrq3kp7PG4&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
           </div>
-      </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Republic Day '25 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=1z-NiUjMxsbHDMT9iN2xWkqQ2aN0bF8Hq&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=1zTyosf-i-bbL7coDJEwE0CWEIz6F3tG0&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=1ANXCnEhMmIPogqT309Acpvh-0zgLwN71&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=17tbb66dnR_Wl8ZksciIEnRhl69bF-0wA&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=16hX1RCWxRT95jt3Hk4it9k--LrXS-Voh&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=11OoXiaAsDtwppLRFL4ps3Bp5gf1uAdaa&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=1tXLqI2AV7gZYKlo-V9vKHGPgxpvi-rtE&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=11xFrv5lqQizsktdLrWl-_eKNXPOfTBXP&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=1ENhon-VoGLTQH--Xxxik-Zsbq3g6cEGx&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=1V8hQo7QrKIkHa2nVdfiTh8rgarSmsL0V&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-            <div class="media-card"> <img src="https://drive.google.com/thumbnail?id=1QvOTwgr0ItmAgKoHpJHIFWyXBGbTFtyZ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
         </div>
       </div>
-   <!--  <div class="media-subsection"> 
+
+      <div id="events-ev2526" style="display: none" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Independence Day '25
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1joPlywSIJMca5oNz06J0Z-XZJUaLC1OU&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1n5lCGY4MnhkKW09hXAQJNhT0G9mePW36&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1oUniystZWgaS1fwFW1OG3Ei7ZjAxWiix&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ArMKDtyYgoR0y5bYEzT_uCEqSJaz5-0J&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1g1iijgydeHZS55YvTPIuEUlEtw0PqwOz&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=16y9pz3gCONTDcu1avNCzOBD_Pow-6PlA&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Republic Day '26
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nxBqVByPhvB3Ti6M9pCUYsr-UmYhttPH&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nxBqVByPhvB3Ti6M9pCUYsr-UmYhttPH&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1DMEt5mzQ46Ub638nYx2Utr0skH7vLWIl&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=11PKImEd8PjoBbeus3GSh6tNoRE-dmRLN&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=16yktx847prXALECBj6dt1bbNVDZmXeA6&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1n37sK8OUBAtZd0Stq269QHXgmitG0mBU&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=180wTtdRrAIbLLSnyM9IQ5tzbGCS57roc&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1WESK4-CdifeOeeKO_syhK7lGdPYnQt4T&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=16HeEPMOnPdSHMUOWpnIrWVz7Y5f05px5&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1lAMcJV3-XrLs_umFwi3553BQvz-mhhlD&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1yPzqhbnqAj4AI8k6Tmhimw7CvrP5iCz1&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ECcmy6SeQOq2EtzlP-Ju3SvkeJniGBTK&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Dance Battle 3.0
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1GSWpZ6_dxRK8_WMAxW8RM551_6shDE-P&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Jzo55v7r2gEHrra9xKK9Unq28ln27nPr&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1yP6rJXwqDxpUwjib6XHMZNk9UbKOGs8_&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1YR2CrqCVKJ56jtic9IujDXbASushLV_C&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1bBBGLaZg7Ns_rnpRnZaarDIRN8t7vb_f&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1rGWxjfp0aLftfsO_4RTsxFY1fqjgD5xF&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1FHpGe5YBT8kXHfV4piC008mPm4kJBHBj&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="events-ev2425" style="display: none" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Independence Day '24
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Wb5ePbisPWfNRlOauhaD62_kE8tLku2b&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1YKDvKtQe1Jrq3oZeLihjwvDYO2xFl2I7&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nu2dg3BaU1uUOIlpPH6Aty2kpSQQRCFM&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1hJJvnDXnduuFn-jWyP87IeYiRrj-WeuB&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1wfbVFti9kqUnIU0wjpwOg-U7y4tFFNCC&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1UV87sOEf-T2D5GG6PyMis8-tyzrS0KXf&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Republic Day '25
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1z-NiUjMxsbHDMT9iN2xWkqQ2aN0bF8Hq&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1zTyosf-i-bbL7coDJEwE0CWEIz6F3tG0&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ANXCnEhMmIPogqT309Acpvh-0zgLwN71&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=17tbb66dnR_Wl8ZksciIEnRhl69bF-0wA&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=16hX1RCWxRT95jt3Hk4it9k--LrXS-Voh&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=11OoXiaAsDtwppLRFL4ps3Bp5gf1uAdaa&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1tXLqI2AV7gZYKlo-V9vKHGPgxpvi-rtE&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=11xFrv5lqQizsktdLrWl-_eKNXPOfTBXP&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ENhon-VoGLTQH--Xxxik-Zsbq3g6cEGx&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1V8hQo7QrKIkHa2nVdfiTh8rgarSmsL0V&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1QvOTwgr0ItmAgKoHpJHIFWyXBGbTFtyZ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <!--  <div class="media-subsection"> 
         <p class="media-subsection-title">Mahua — Flashmob <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
         <div class="media-grid collapsible-photos" style="display:none">
           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
         </div>  
       </div>  -->
-      <div class="media-subsection">
-        <p class="media-subsection-title">Dance Battle 2.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1P9YddsAInjG8gV2DFJIm0NcBE0dKW0ud&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1lEqdwxRq6cwr9iIz7cht-wNeA6L64O1-&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1bl4XLqgrkQXyMCeAF8uTN8ann1lsR91q&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1KS2hpKVts7LNYPTfRUwSayeKDg5uFZm-&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1QZoLuLyM9rX7_MblJtLRU6v8K--Nkx9g&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=14CQ80itqWUZfua7guA0OL0unOPCOFstj&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=10uuMD406iR4fXmemfMhEtGCU7-fjXG2D&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nTn4wyiN5xNr5ebZQYEIq1yGMXss6wWI&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1d5OGdbL11HZjjkNFhWvUMndqf3pX5ewG&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1DvsCctu08qCF7Yr0vln8FNEJ8krc4f_8&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1kenSWmLZllhT6hghxSeCpfnzZErlC3dQ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1-9be_EcmxQoES4IZGBplws-i16nyMyDw&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Iq_7MJanz_56edyhmkuq1ss7R0cWwDh8&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1GPqwa-kYXe2k9kY1WicYuDvHPAk40FHb&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1RyKU79BKa5Gdxs5-UZ42tXotmnpWNhly&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Dance Battle 2.0
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1P9YddsAInjG8gV2DFJIm0NcBE0dKW0ud&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1lEqdwxRq6cwr9iIz7cht-wNeA6L64O1-&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1bl4XLqgrkQXyMCeAF8uTN8ann1lsR91q&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1KS2hpKVts7LNYPTfRUwSayeKDg5uFZm-&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1QZoLuLyM9rX7_MblJtLRU6v8K--Nkx9g&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=14CQ80itqWUZfua7guA0OL0unOPCOFstj&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=10uuMD406iR4fXmemfMhEtGCU7-fjXG2D&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nTn4wyiN5xNr5ebZQYEIq1yGMXss6wWI&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1d5OGdbL11HZjjkNFhWvUMndqf3pX5ewG&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1DvsCctu08qCF7Yr0vln8FNEJ8krc4f_8&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1kenSWmLZllhT6hghxSeCpfnzZErlC3dQ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1-9be_EcmxQoES4IZGBplws-i16nyMyDw&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Iq_7MJanz_56edyhmkuq1ss7R0cWwDh8&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1GPqwa-kYXe2k9kY1WicYuDvHPAk40FHb&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1RyKU79BKa5Gdxs5-UZ42tXotmnpWNhly&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Lumos 2.0
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1nKb73VM7OChZucyILgTAY5yQ07eGoZXw&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=10EKM6jeolzZnz0_dFMTsyVp1pb_XEJMU&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ZswNHm5en84JQoo1OlQfz0YW0d6NbVFU&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1O86HCmidr4Kfm4PVnMc9UF1tIuEF0gAu&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div class="media-subsection">
-        <p class="media-subsection-title">Lumos 2.0 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1nKb73VM7OChZucyILgTAY5yQ07eGoZXw&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=10EKM6jeolzZnz0_dFMTsyVp1pb_XEJMU&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1ZswNHm5en84JQoo1OlQfz0YW0d6NbVFU&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1O86HCmidr4Kfm4PVnMc9UF1tIuEF0gAu&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-        </div>
-      </div>
-    </div>
 
-    <div id="events-ev2324" style="display:none" class="reveal">
-      <div class="media-subsection">
-        <p class="media-subsection-title">Independence Day '23 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
-        <div class="media-grid collapsible-photos" style="display:none">
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1MCRR2LOgwt7nP6NWm8_kSCaFYhQCKSoO&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1ZhHjKo6_KACjdr16bIrn2ukU7vLC0Rvc&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=19Hv9zDzOR_y8MfEw2aFboo00p4u61X18&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=16qsDXNLbWX-b4UVmzjNfN1iOkvjAVd6N&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1oKeL0wtoKHVXIpwtu0e1kaARplw6KgO8&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1Nm_gfz4qjieRhffLSjlsEMZXuEs1izPc&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1q8ywV79p7XHX8SAVhhNmT9XzqK_yLhrP&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1SIKlZjb9wV668Y52RoNSG3UvcU9L1EmQ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=10JlP5cZSEoncMZDdUMl3jpe3IZXxQXnR&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1b24z6neXdXyY1lDAPqIh5D3rpXuYwug-&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=15QdkjSORgni86Tq_NM0GmhM9ZnaiYreD&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1LxrgOzlLP-t1JmkeQFg-ba22Dqlsixfq&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=14DZ8J8m7ooQTkrdiSFNBpOSZij9cA1AZ&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
-          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=1D1clYCRycuk57v8ueJ8iEHpDzokrht5H&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
+      <div id="events-ev2324" style="display: none" class="reveal">
+        <div class="media-subsection">
+          <p class="media-subsection-title">
+            Independence Day '23
+            <button class="toggle-photos-btn" onclick="togglePhotos(this)">
+              Show Photos
+            </button>
+          </p>
+          <div class="media-grid collapsible-photos" style="display: none">
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1MCRR2LOgwt7nP6NWm8_kSCaFYhQCKSoO&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1ZhHjKo6_KACjdr16bIrn2ukU7vLC0Rvc&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=19Hv9zDzOR_y8MfEw2aFboo00p4u61X18&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=16qsDXNLbWX-b4UVmzjNfN1iOkvjAVd6N&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1oKeL0wtoKHVXIpwtu0e1kaARplw6KgO8&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1Nm_gfz4qjieRhffLSjlsEMZXuEs1izPc&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1q8ywV79p7XHX8SAVhhNmT9XzqK_yLhrP&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1SIKlZjb9wV668Y52RoNSG3UvcU9L1EmQ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=10JlP5cZSEoncMZDdUMl3jpe3IZXxQXnR&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1b24z6neXdXyY1lDAPqIh5D3rpXuYwug-&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=15QdkjSORgni86Tq_NM0GmhM9ZnaiYreD&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1LxrgOzlLP-t1JmkeQFg-ba22Dqlsixfq&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=14DZ8J8m7ooQTkrdiSFNBpOSZij9cA1AZ&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+            <div class="media-card">
+              <img
+                src="https://drive.google.com/thumbnail?id=1D1clYCRycuk57v8ueJ8iEHpDzokrht5H&sz=w800"
+                style="width: 100%; aspect-ratio: 16/9; object-fit: cover"
+              />
+            </div>
+          </div>
         </div>
-      </div>
-     <!-- <div class="media-subsection">
+        <!-- <div class="media-subsection">
         <p class="media-subsection-title">Republic Day '24 <button class="toggle-photos-btn" onclick="togglePhotos(this)">Show Photos</button></p>
         <div class="media-grid collapsible-photos" style="display:none">
           <div class="media-card"><img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
@@ -708,84 +2039,109 @@
          <div class="media-card"><img src="https://drive.google.com/thumbnail?id=YOUR_FILE_ID&sz=w800" style="width:100%;aspect-ratio:16/9;object-fit:cover;"></div>
         </div>
       </div>  -->
+      </div>
+    </section>
+
+    <footer>
+      © 2026 Mayuraa Dance Club · IISER Bhopal &nbsp;·&nbsp; All rights reserved
+    </footer>
+
+    <div class="lightbox-overlay" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose">✕</button>
+      <button class="lightbox-arrow left" id="lightboxPrev">&#8592;</button>
+      <img id="lightboxImg" src="" alt="" />
+      <button class="lightbox-arrow right" id="lightboxNext">&#8594;</button>
     </div>
-  </section>
-
-  <footer>
-    © 2025 Mayuraa Dance Club · IISER Bhopal &nbsp;·&nbsp; All rights reserved
-  </footer>
-
-  <div class="lightbox-overlay" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">✕</button>
-    <button class="lightbox-arrow left" id="lightboxPrev">&#8592;</button>
-    <img id="lightboxImg" src="" alt="">
-    <button class="lightbox-arrow right" id="lightboxNext">&#8594;</button>
-  </div>
-
+  </body>
   <script>
     function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('open');
+      document.getElementById("navLinks").classList.toggle("open");
     }
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.addEventListener('click', () => {
-        document.getElementById('navLinks').classList.remove('open');
+    document.querySelectorAll(".nav-links a").forEach((a) => {
+      a.addEventListener("click", () => {
+        document.getElementById("navLinks").classList.remove("open");
       });
     });
 
     function togglePhotos(btn) {
-      const grid = btn.closest('.media-subsection').querySelector('.collapsible-photos');
-      const isHidden = grid.style.display === 'none';
-      grid.style.display = isHidden ? 'grid' : 'none';
-      btn.textContent = isHidden ? 'Hide Photos' : 'Show Photos';
+      const grid = btn
+        .closest(".media-subsection")
+        .querySelector(".collapsible-photos");
+      const isHidden = grid.style.display === "none";
+      grid.style.display = isHidden ? "grid" : "none";
+      btn.textContent = isHidden ? "Hide Photos" : "Show Photos";
     }
 
     function showYear(section, year, btn) {
-      ['2526','2425','2324','ev2526','ev2425','ev2324'].forEach(y => {
-        const el = document.getElementById(section + '-' + y);
-        if (el) el.style.display = 'none';
+      [
+        "2627",
+        "2526",
+        "2425",
+        "2324",
+        "ev2627",
+        "ev2526",
+        "ev2425",
+        "ev2324",
+      ].forEach((y) => {
+        const el = document.getElementById(section + "-" + y);
+        if (el) el.style.display = "none";
       });
-      const target = document.getElementById(section + '-' + year);
-      if (target) target.style.display = 'block';
-      btn.closest('.year-tabs').querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      const target = document.getElementById(section + "-" + year);
+      if (target) target.style.display = "block";
+      btn
+        .closest(".year-tabs")
+        .querySelectorAll(".year-btn")
+        .forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("visible");
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.08 },
+    );
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
     // LIGHTBOX FUNCTIONALITY - FIXED
     let lightboxImages = [];
     let lightboxIndex = 0;
 
-   function openLightbox(imageId, subsectionEl) {
-      const allImgs = subsectionEl.querySelectorAll('.media-card img');
-      lightboxImages = Array.from(allImgs).map(i => i.src.match(/id=([^&]+)/)?.[1]).filter(Boolean);
+    function openLightbox(imageId, subsectionEl) {
+      const allImgs = subsectionEl.querySelectorAll(".media-card img");
+      lightboxImages = Array.from(allImgs)
+        .map((i) => i.src.match(/id=([^&]+)/)?.[1])
+        .filter(Boolean);
       lightboxIndex = lightboxImages.indexOf(imageId);
       if (lightboxIndex === -1) lightboxIndex = 0;
       updateLightboxImage();
-      document.getElementById('lightbox').classList.add('active');
-      document.body.style.overflow = 'hidden';
+      document.getElementById("lightbox").classList.add("active");
+      document.body.style.overflow = "hidden";
     }
 
     function preload(index) {
       const i = (index + lightboxImages.length) % lightboxImages.length;
       if (!lightboxImages[i]) return;
       const img = new Image();
-      img.src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[i] + '&sz=w1600';
+      img.src =
+        "https://drive.google.com/thumbnail?id=" +
+        lightboxImages[i] +
+        "&sz=w1600";
     }
 
     function updateLightboxImage() {
       if (lightboxImages.length === 0) return;
-      const img = document.getElementById('lightboxImg');
-      img.src = 'https://drive.google.com/thumbnail?id=' + lightboxImages[lightboxIndex] + '&sz=w1600';
+      const img = document.getElementById("lightboxImg");
+      img.src =
+        "https://drive.google.com/thumbnail?id=" +
+        lightboxImages[lightboxIndex] +
+        "&sz=w1600";
       preload(lightboxIndex + 1);
       preload(lightboxIndex + 2);
       preload(lightboxIndex - 1);
@@ -793,69 +2149,77 @@
     }
 
     function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
-      document.body.style.overflow = '';
+      document.getElementById("lightbox").classList.remove("active");
+      document.body.style.overflow = "";
       setTimeout(() => {
-        document.getElementById('lightboxImg').src = '';
+        document.getElementById("lightboxImg").src = "";
       }, 300);
     }
 
     function changePhoto(direction) {
       if (lightboxImages.length === 0) return;
-      lightboxIndex = (lightboxIndex + direction + lightboxImages.length) % lightboxImages.length;
+      lightboxIndex =
+        (lightboxIndex + direction + lightboxImages.length) %
+        lightboxImages.length;
       updateLightboxImage();
     }
 
     // Click on image to open lightbox
-   document.querySelectorAll('.media-card img').forEach(img => {
-      img.addEventListener('click', function(e) {
+    document.querySelectorAll(".media-card img").forEach((img) => {
+      img.addEventListener("click", function (e) {
         e.stopPropagation();
         const id = this.src.match(/id=([^&]+)/)?.[1];
-        const subsection = this.closest('.collapsible-photos');
+        const subsection = this.closest(".collapsible-photos");
         if (id && subsection) openLightbox(id, subsection);
       });
     });
 
     // Close button
-    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document
+      .getElementById("lightboxClose")
+      .addEventListener("click", closeLightbox);
 
     // Arrow buttons
-    document.getElementById('lightboxPrev').addEventListener('click', function(e) {
-      e.stopPropagation();
-      changePhoto(-1);
-    });
+    document
+      .getElementById("lightboxPrev")
+      .addEventListener("click", function (e) {
+        e.stopPropagation();
+        changePhoto(-1);
+      });
 
-    document.getElementById('lightboxNext').addEventListener('click', function(e) {
-      e.stopPropagation();
-      changePhoto(1);
-    });
+    document
+      .getElementById("lightboxNext")
+      .addEventListener("click", function (e) {
+        e.stopPropagation();
+        changePhoto(1);
+      });
 
     // Click on overlay background to close
-    document.getElementById('lightbox').addEventListener('click', function(e) {
+    document.getElementById("lightbox").addEventListener("click", function (e) {
       if (e.target === this) closeLightbox();
     });
 
     // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-      const lightbox = document.getElementById('lightbox');
-      if (!lightbox.classList.contains('active')) return;
-      
-      if (e.key === 'Escape') {
+    document.addEventListener("keydown", function (e) {
+      const lightbox = document.getElementById("lightbox");
+      if (!lightbox.classList.contains("active")) return;
+
+      if (e.key === "Escape") {
         closeLightbox();
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === "ArrowRight") {
         e.preventDefault();
         changePhoto(1);
-      } else if (e.key === 'ArrowLeft') {
+      } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         changePhoto(-1);
       }
     });
 
     // Prevent lightbox image click from closing
-    document.getElementById('lightboxImg').addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
+    document
+      .getElementById("lightboxImg")
+      .addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
   </script>
-
-</body>
 </html>
